@@ -1,0 +1,59 @@
+---
+import GlassCard from './GlassCard.astro';
+import SectionHeading from './SectionHeading.astro';
+
+interface Props {
+  oldWayTitle?: string;
+  newWayTitle?: string;
+  comparisons: {
+    old: string;
+    new: string;
+  }[];
+}
+
+const { 
+  oldWayTitle = "The Old Way (Slow & Fragile)", 
+  newWayTitle = "The AI Architecture Way (Instant & Scalable)",
+  comparisons 
+} = Astro.props;
+---
+
+<section class="py-16">
+  <SectionHeading 
+    title="Why change everything?" 
+    subtitle="The ROI of agentic architecture is not measured in percentages. It is measured in multiples."
+    align="center"
+  />
+
+  <div class="grid md:grid-cols-2 gap-8 mt-12 max-w-5xl mx-auto">
+    <!-- Old Way -->
+    <GlassCard class="border-red-500/20 bg-red-950/10" hover={false}>
+      <h3 class="text-xl font-bold text-red-400 mb-6">{oldWayTitle}</h3>
+      <ul class="space-y-4">
+        {comparisons.map((item) => (
+          <li class="flex items-start gap-3 text-slate-400">
+            <svg class="w-6 h-6 text-red-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+            <span>{item.old}</span>
+          </li>
+        ))}
+      </ul>
+    </GlassCard>
+
+    <!-- New Way -->
+    <GlassCard hover={true}>
+      <h3 class="text-xl font-bold bg-gradient-to-r from-violet-400 to-rose-400 bg-clip-text text-transparent mb-6">{newWayTitle}</h3>
+      <ul class="space-y-4">
+        {comparisons.map((item) => (
+          <li class="flex items-start gap-3 text-slate-200">
+            <svg class="w-6 h-6 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span>{item.new}</span>
+          </li>
+        ))}
+      </ul>
+    </GlassCard>
+  </div>
+</section>

@@ -1,0 +1,107 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import ServiceCard from '../components/ui/ServiceCard.astro';
+import CTASection from '../components/ui/CTASection.astro';
+import SchemaOrg from '../components/seo/SchemaOrg.astro';
+import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
+
+const coreServices = [
+  {
+    icon: '🤖',
+    title: 'AI Marketing Architecture',
+    description: 'Custom AI agent systems that automate your entire marketing pipeline — from lead capture to nurture to conversion. Built on open-source, owned by you. No vendor lock-in.',
+  },
+  {
+    icon: '🧠',
+    title: 'Fractional AI-CMO',
+    description: 'A senior marketing strategist who actually builds — strategy, architecture, and implementation in one person. Weekly or monthly engagements. Not advice. Outcomes.',
+  },
+  {
+    icon: '🛠️',
+    title: 'Managed Open-Source Marketing Stack',
+    description: 'Pre-configured marketing tools — email (Listmonk), analytics (Plausible), CRM, automation — hosted, maintained, and updated by us. From $49/mo.',
+  },
+];
+
+const expansionServices = [
+  {
+    icon: '⚙️',
+    title: 'AI Workflow Implementation',
+    description: 'Extend beyond marketing — automate sales, HR, operations, and finance workflows with AI-powered systems built on open-source infrastructure.',
+  },
+  {
+    icon: '🔍',
+    title: 'MarTech Stack Auditing',
+    description: 'Audit your current marketing technology stack. Identify redundancies, eliminate bloat, and consolidate tools for efficiency and cost savings.',
+  },
+  {
+    icon: '🎓',
+    title: 'AI Marketing Training & Workshops',
+    description: 'Hands-on training for your team — not slides and theory. Learn to operate AI marketing systems independently. Live workshops and async resources.',
+  },
+  {
+    icon: '🏫',
+    title: 'College & Institution Training',
+    description: 'Digital marketing and AI upskilling programs for colleges and institutions. Curriculum design, workshops, and certification pathways.',
+  },
+];
+
+const serviceSchema = {
+  '@type': 'Service',
+  provider: {
+    '@type': 'Organization',
+    name: 'HextonHQ',
+  },
+  serviceType: 'AI Marketing Architecture',
+  description: 'Custom AI agent systems, fractional AI-CMO, managed open-source marketing stack, training, and workshops.',
+  areaServed: 'Worldwide',
+};
+---
+
+<BaseLayout
+  title="Services"
+  description="AI Marketing Architecture, Fractional AI-CMO, Managed Open-Source Stack, Training & Workshops. We build, host, and teach AI-powered marketing systems."
+>
+  <SchemaOrg schema={serviceSchema} />
+
+  <section class="py-24 relative">
+    <div class="max-w-[var(--container-max)] mx-auto px-6">
+      <Breadcrumbs items={[
+        { name: 'Home', href: '/' },
+        { name: 'Services' },
+      ]} />
+
+      <SectionHeading
+        label="Services"
+        title='Everything you need to <span class="text-gradient">build with AI.</span>'
+        subtitle="From strategy to implementation to training — we cover the entire journey."
+      />
+
+      <!-- Core Services -->
+      <div class="mb-16">
+        <h3 class="text-sm font-medium uppercase tracking-wider text-violet mb-6">Core Services</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {coreServices.map((service) => (
+            <ServiceCard {...service} />
+          ))}
+        </div>
+      </div>
+
+      <!-- Expansion Services -->
+      <div>
+        <h3 class="text-sm font-medium uppercase tracking-wider text-text-secondary mb-6">Growth & Training</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {expansionServices.map((service) => (
+            <ServiceCard {...service} />
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTASection
+    title='Ready to <span class="text-gradient">automate your marketing?</span>'
+    subtitle="Book a free 30-minute discovery call. We'll map your biggest opportunities."
+  />
+</BaseLayout>

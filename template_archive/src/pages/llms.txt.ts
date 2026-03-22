@@ -1,0 +1,38 @@
+import type { APIRoute } from 'astro';
+
+export const GET: APIRoute = () => {
+    const llmsTxt = `# HextonHQ
+
+> HextonHQ builds, hosts, and teaches AI-powered marketing systems. Founded by Vishnu Raam in Hyderabad, India.
+
+## What We Do
+- **Build**: Custom AI agent systems for marketing automation, workflow implementation
+- **Host**: Managed open-source marketing stack at a fraction of enterprise costs
+- **Teach**: Hands-on AI marketing training for teams, colleges, and institutions
+
+## Services
+- [AI Marketing Architecture](/services): Custom AI agent systems for marketing automation
+- [Fractional AI-CMO](/services): Strategy + architecture + implementation
+- [Managed Open-Source Stack](/pricing): Pre-configured OSS tools ($49-$399/mo)
+- [AI Workflow Implementation](/services): Beyond marketing — sales, HR, ops, finance
+- [MarTech Stack Auditing](/services): Consolidate and optimize your tools
+- [AI Marketing Training](/services): Hands-on workshops, not theory
+
+## Company
+- [About HextonHQ](/about): Mission, vision, founder story
+- [Pricing](/pricing): Transparent pricing for all services
+- [Contact](/contact): Get in touch with our team
+- [Blog](/blog): Insights on AI marketing, open-source, and web development
+
+## Key Facts
+- Founded: 2026
+- Founder: Vishnu Raam
+- Location: Hyderabad, India
+- Focus: AI Marketing Architecture for growing businesses
+- USP: "We don't sell AI. We install it."
+`;
+
+    return new Response(llmsTxt, {
+        headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+    });
+};

@@ -1,0 +1,76 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionHeading from '../../components/ui/SectionHeading.astro';
+import GlassCard from '../../components/ui/GlassCard.astro';
+import Breadcrumbs from '../../components/seo/Breadcrumbs.astro';
+
+// Placeholder posts until Content Collections are set up
+const posts = [
+  {
+    title: 'Why Open-Source Marketing Tools Beat Enterprise SaaS',
+    description: 'How switching to Listmonk, Plausible, and n8n saved our clients 60% on marketing infrastructure costs.',
+    date: '2026-03-01',
+    slug: '#',
+    tag: 'Open Source',
+  },
+  {
+    title: 'The AI Marketing Architecture Playbook',
+    description: 'A step-by-step framework for building AI-powered marketing systems that don\'t depend on any single vendor.',
+    date: '2026-02-15',
+    slug: '#',
+    tag: 'AI Marketing',
+  },
+  {
+    title: 'SEO in 2026: Why AEO and GEO Matter More Than Ever',
+    description: 'Search is changing. AI Overviews, Perplexity, ChatGPT — here\'s how to make sure your business gets found.',
+    date: '2026-02-01',
+    slug: '#',
+    tag: 'SEO',
+  },
+];
+
+function formatDate(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+---
+
+<BaseLayout
+  title="Blog"
+  description="Insights on AI marketing, open-source tools, SEO strategy, and modern web development from the HextonHQ team."
+>
+  <section class="py-24 relative">
+    <div class="max-w-[var(--container-max)] mx-auto px-6">
+      <Breadcrumbs items={[
+        { name: 'Home', href: '/' },
+        { name: 'Blog' },
+      ]} />
+
+      <SectionHeading
+        label="Blog"
+        title={`Insights from the <span class="text-gradient">builder's perspective.</span>`}
+        subtitle="Practical guides on AI marketing, open-source, and what actually works."
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {posts.map((post) => (
+          <a href={post.slug} class="block group">
+            <GlassCard>
+              <div class="flex items-center gap-3 mb-4">
+                <span class="px-2.5 py-1 rounded-full bg-violet/10 text-violet text-xs font-medium">{post.tag}</span>
+                <span class="text-text-secondary text-xs">{formatDate(post.date)}</span>
+              </div>
+              <h3 class="text-lg font-heading font-bold mb-2 group-hover:text-violet transition-colors">{post.title}</h3>
+              <p class="text-text-secondary text-sm leading-relaxed">{post.description}</p>
+            </GlassCard>
+          </a>
+        ))}
+      </div>
+
+      <p class="text-text-secondary text-sm text-center mt-12">
+        More articles coming soon. Follow us on
+        <a href="https://twitter.com/hextonhq" class="text-violet hover:underline">Twitter</a> and
+        <a href="https://linkedin.com/company/hextonhq" class="text-violet hover:underline">LinkedIn</a> for updates.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,35 @@
+---
+interface TimelineStep {
+  step: string;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  steps: TimelineStep[];
+}
+
+const { steps } = Astro.props;
+---
+
+<div class="relative max-w-3xl mx-auto">
+  <!-- Vertical line -->
+  <div class="absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-violet to-rose opacity-30"></div>
+
+  <div class="space-y-12">
+    {steps.map((step, i) => (
+      <div class="relative flex gap-6 reveal">
+        <!-- Dot -->
+        <div class="relative z-10 shrink-0 w-12 h-12 rounded-full bg-violet/20 border border-violet/40 flex items-center justify-center">
+          <span class="text-violet font-bold font-heading text-sm">{step.step}</span>
+        </div>
+
+        <!-- Content -->
+        <div class="glass rounded-xl p-5 flex-1 card-glow magic-tilt">
+          <h3 class="text-lg font-bold font-heading mb-2">{step.title}</h3>
+          <p class="text-text-secondary text-sm leading-relaxed">{step.description}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>

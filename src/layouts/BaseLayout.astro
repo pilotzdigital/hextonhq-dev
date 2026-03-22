@@ -1,0 +1,149 @@
+---
+import '../styles/global.css';
+import BaseHead from '../components/seo/BaseHead.astro';
+import SchemaOrg from '../components/seo/SchemaOrg.astro';
+import Header from '../components/ui/Header.astro';
+import Footer from '../components/ui/Footer.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  article?: boolean;
+  noindex?: boolean;
+}
+
+const { title, description, image, article, noindex } = Astro.props;
+
+const orgSchema = {
+  '@type': 'Organization',
+  name: 'HextonHQ',
+  url: 'https://hextonhq.com',
+  logo: 'https://hextonhq.com/favicon.svg',
+  founder: {
+    '@type': 'Person',
+    name: 'Vishnu Raam',
+  },
+  foundingDate: '2026',
+  description: 'HextonHQ builds, hosts, and teaches AI-powered marketing systems for growing businesses.',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Hyderabad',
+    addressCountry: 'IN',
+  },
+  sameAs: [
+    'https://linkedin.com/company/hextonhq',
+    'https://twitter.com/hextonhq',
+    'https://github.com/hextonhq',
+  ],
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead
+      title={title}
+      description={description}
+      image={image}
+      article={article}
+      noindex={noindex}
+    />
+    <SchemaOrg schema={orgSchema} />
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <Header />
+    <main class="flex-1 pt-16">
+      <slot />
+    </main>
+    <Footer />
+
+    <!-- Scroll reveal observer and Global Magic Tracking -->
+    <script>
+      // Scroll Reveal
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+
+      document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+      // Global Magic Hover Tracking
+      function initGlobalGlow() {
+        document.addEventListener('mousemove', (e) => {
+          const x = e.clientX;
+          const y = e.clientY;
+          
+          document.body.style.setProperty('--mouse-x', `${x}px`);
+          document.body.style.setProperty('--mouse-y', `${y}px`);
+          
+          // Also update individual cards so local borders still work correctly relative to the card's position
+          const cards = document.querySelectorAll('.card-glow, .gradient-border');
+          cards.forEach((card) => {
+            const el = card as HTMLElement;
+            const rect = el.getBoundingClientRect();
+            const cardX = e.clientX - rect.left;
+            const cardY = e.clientY - rect.top;
+            el.style.setProperty('--card-mouse-x', `${cardX}px`);
+            el.style.setProperty('--card-mouse-y', `${cardY}px`);
+          });
+        });
+      }
+
+      // Magic Card 3D Tilt Tracking
+      function initMagicTilt() {
+        const tiltCards = document.querySelectorAll('.magic-tilt');
+        tiltCards.forEach((card) => {
+          const el = card as HTMLElement;
+          
+          el.addEventListener('mousemove', (e) => {
+            const ev = e as MouseEvent;
+            const rect = el.getBoundingClientRect();
+            const width = rect.width;
+            const height = rect.height;
+            const x = ev.clientX - rect.left;
+            const y = ev.clientY - rect.top;
+            
+            const centerX = width / 2;
+            const centerY = height / 2;
+            
+            // Max rotation 7.5 degrees (matches GenAI tempalte)
+            const rotateX = ((y - centerY) / centerY) * -7.5;
+            const rotateY = ((x - centerX) / centerX) * 7.5;
+            
+            el.style.setProperty('--rotate-x', `${rotateX}deg`);
+            el.style.setProperty('--rotate-y', `${rotateY}deg`);
+            el.style.setProperty('--tilt-active', '1');
+          });
+          
+          el.addEventListener('mouseleave', () => {
+            el.style.setProperty('--tilt-active', '0');
+            el.style.setProperty('--rotate-x', '0deg');
+            el.style.setProperty('--rotate-y', '0deg');
+          });
+        });
+      }
+
+      document.addEventListener('astro:page-load', () => {
+        initGlobalGlow();
+        initMagicTilt();
+      });
+      
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+          initGlobalGlow();
+          initMagicTilt();
+        });
+      } else {
+        initGlobalGlow();
+        initMagicTilt();
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,207 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/ui/Hero.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import ServiceCard from '../components/ui/ServiceCard.astro';
+import GlassCard from '../components/ui/GlassCard.astro';
+import CTASection from '../components/ui/CTASection.astro';
+---
+
+<BaseLayout
+  title="The AI Adoption Company | HextonHQ"
+  description="Extraordinary things happen when extraordinary technology reaches ordinary people. HextonHQ gives organizations and individuals the architecture to build an AI-native future."
+>
+  <!-- Section 1: Hero -->
+  <Hero
+    label="The AI Adoption Company"
+    title='Extraordinary things happen when <span class="text-gradient">extraordinary technology</span> reaches ordinary people.'
+    subtitle="The world's most powerful tools shouldn't be locked behind Fortune 500 budgets."
+    primaryCTA={{ label: 'See What We Believe', href: '#brand-story' }}
+    secondaryCTA={{ label: 'The Numbers', href: '#data' }}
+  />
+
+  <!-- Section 2: THE BRAND STORY — "This Has Happened Before" -->
+  <section class="py-24 relative" id="brand-story">
+    <div class="max-w-[var(--container-max)] mx-auto px-6">
+      <SectionHeading
+        label="Why We Exist"
+        title="This has <span class='text-gradient'>happened before.</span>"
+      />
+      
+      <div class="max-w-3xl mx-auto mt-12 space-y-6 text-lg text-text-secondary leading-relaxed">
+        <p>
+          When electricity arrived, factories that adopted it didn't just get brighter rooms — they redesigned everything. Assembly lines. Shifts. Entire industries, born overnight. The ones that waited? They didn't get a second chance.
+        </p>
+        <p>
+          AI is that moment.
+        </p>
+        <p>
+          Not the chatbot on a website. Not the auto-generated email. The real thing — systems that think, learn, and execute at a speed no human team can match alone.
+        </p>
+        <p>
+          But here's what nobody talks about: electricity didn't just change factories. It changed <em>people</em>. Entirely new professions. New businesses. New ways of living. The ones who learned to work <em>with</em> it built empires. The ones who feared it got left behind.
+        </p>
+        <p class="font-medium text-text">
+          We started HextonHQ because we believe the size of your team should never limit the size of your ambition. And right now, AI is the greatest equalizer the world has ever seen — if you know how to use it.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: FOR ORGANIZATIONS -->
+  <section class="py-24 relative bg-violet/5" id="data">
+    <div class="max-w-[var(--container-max)] mx-auto px-6">
+      <SectionHeading
+        label="For Organizations"
+        title="AI adoption isn't a feature. It's a <span class='text-gradient'>redesign</span> of how your business operates."
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 max-w-5xl mx-auto">
+        <GlassCard class="text-center">
+          <div class="text-5xl font-bold font-heading text-gradient mb-2">88%</div>
+          <p class="text-text font-medium mb-4">of organizations use AI in at least one function</p>
+          <p class="text-sm text-text-secondary italic">McKinsey, 2025</p>
+        </GlassCard>
+        <GlassCard class="text-center">
+          <div class="text-5xl font-bold font-heading text-gradient mb-2">Only 7%</div>
+          <p class="text-text font-medium mb-4">have fully deployed it across their organization</p>
+          <p class="text-sm text-text-secondary italic">DesignRush, 2025</p>
+        </GlassCard>
+        <GlassCard class="text-center">
+          <div class="text-5xl font-bold font-heading text-gradient mb-2">74%</div>
+          <p class="text-text font-medium mb-4">of executives saw ROI within 12 months</p>
+          <p class="text-sm text-text-secondary italic">Google Cloud, 2025</p>
+        </GlassCard>
+      </div>
+
+      <div class="max-w-4xl mx-auto mt-12 text-center text-lg text-text-secondary leading-relaxed">
+        <p>Most companies already know they need AI. What they don't have is the architecture — the systems, the workflows, the strategy that makes it actually work. Not a plugin. Not a chatbot. A complete redesign of how work moves through your organization. We build that. End-to-end marketing architecture, go-to-market systems, and AI workflows — designed to scale with you, built on open-source, and owned entirely by you.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: FOR INDIVIDUALS -->
+  <section class="py-24 relative">
+    <div class="max-w-[var(--container-max)] mx-auto px-6">
+      <SectionHeading
+        label="For Individuals"
+        title="170 million new jobs will be created by 2030. <span class='text-gradient'>92 million will disappear.</span>"
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16 max-w-4xl mx-auto">
+        <GlassCard class="text-center p-10">
+          <div class="text-6xl font-bold font-heading text-gradient mb-4">39%</div>
+          <p class="text-text text-lg font-medium mb-6">of workers' core skills will change by 2030</p>
+          <p class="text-sm text-text-secondary italic">World Economic Forum</p>
+        </GlassCard>
+        <GlassCard class="text-center p-10">
+          <div class="text-6xl font-bold font-heading text-gradient mb-4">68%</div>
+          <p class="text-text text-lg font-medium mb-6">of small business owners already use AI</p>
+          <p class="text-sm text-text-secondary italic">Goldman Sachs, 2025</p>
+        </GlassCard>
+      </div>
+
+      <div class="max-w-3xl mx-auto mt-12 text-center text-lg text-text-secondary leading-relaxed">
+        <p>Every technological revolution creates two kinds of people: those who learn the new tools, and those who get replaced by them. We believe there's a third kind — those who build with them. HextonHQ gives individuals the training, the tools, and the support to build something of their own. Not because the future is scary. Because the future is <em>available</em> — and most people don't know it yet.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 5: IDENTITY - Adopt. Scale. Prepare. -->
+  <section class="py-24 relative bg-violet/5">
+    <div class="max-w-[var(--container-max)] mx-auto px-6">
+      <SectionHeading
+        label="Our Approach"
+        title="<span class='text-gradient'>Adopt.</span> Scale. Prepare."
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+        <ServiceCard
+          icon="⚡"
+          title="Adopt."
+          description="We don't sell AI. We install it into your workflows, your operations, your culture. Not advice. Not decks. Working systems you own."
+        />
+        <ServiceCard
+          icon="📈"
+          title="Scale."
+          description="From go-to-market strategy to marketing architecture — we build the engine that grows with you. Open-source, no lock-in, designed for compound returns."
+        />
+        <ServiceCard
+          icon="🛡️"
+          title="Prepare."
+          description="The AI economy rewards builders, not bystanders. We train individuals and teams to operate in an AI-native world — before the market decides for them."
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 6: VALUES -->
+  <section class="py-24 relative">
+    <div class="max-w-[var(--container-max)] mx-auto px-6">
+      <SectionHeading
+        label="What We Stand For"
+        title="Five things we'll <span class='text-gradient'>never compromise</span> on."
+      />
+
+      <div class="mt-16 max-w-4xl mx-auto space-y-6">
+        {[
+          { title: "We build, we don't advise.", desc: "Strategy without implementation is a PowerPoint. We ship systems that work." },
+          { title: "Open by default.", desc: "Your code, your data, your infrastructure. No vendor lock-in. No hidden dependencies." },
+          { title: "Earn trust, not dependence.", desc: "Our job is done when you don't need us anymore." },
+          { title: "Stay a student.", desc: "The AI landscape changes weekly. We stay curious and share what we learn." },
+          { title: "Measure in impact, not hours.", desc: "We don't bill for effort. We charge for outcomes." }
+        ].map((value, index) => (
+          <GlassCard class="flex flex-col sm:flex-row gap-6 items-start sm:items-center p-6 sm:p-8" hover={false}>
+            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-violet/20 to-rose/20 flex items-center justify-center text-xl font-bold text-violet border border-violet/20">
+              0{index + 1}
+            </div>
+            <div>
+              <h3 class="text-xl font-bold font-heading text-text mb-2">{value.title}</h3>
+              <p class="text-text-secondary">{value.desc}</p>
+            </div>
+          </GlassCard>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 7: FOUNDER'S NOTE -->
+  <section class="py-24 relative">
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-violet/5 to-transparent"></div>
+    <div class="relative z-10 max-w-4xl mx-auto px-6">
+      <SectionHeading
+        label="A Note from the Founder"
+        title="&quot;I started HextonHQ because I kept seeing the <span class='text-gradient'>same pattern.</span>&quot;"
+      />
+
+      <GlassCard class="p-8 sm:p-12 mt-16 relative overflow-hidden" hover={false}>
+        <div class="absolute top-0 right-0 w-64 h-64 bg-violet/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+        
+        <div class="relative z-10 space-y-6 text-text-secondary leading-relaxed text-lg">
+          <p>Giant companies were using AI to move at light speed — automating workflows, personalizing at scale, making decisions faster than any human team could. And small businesses? Founders? Growing teams? They were stuck choosing between tools they couldn't afford and advice they couldn't act on.</p>
+          
+          <p>I built HextonHQ for the builder in between. The person with the ambition of a giant and the budget of a startup. The team that knows AI matters but doesn't have a dedicated AI department.</p>
+
+          <p class="font-medium text-text border-l-4 border-violet pl-6 py-2">We exist to close that gap. To bring the most powerful tools in the world to the people who will do the most extraordinary things with them.</p>
+
+          <div class="pt-8 mt-8 border-t border-border/50 flex items-center gap-4">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-r from-violet to-rose flex items-center justify-center text-white font-bold text-2xl shadow-lg">
+              VR
+            </div>
+            <div>
+              <div class="font-bold font-heading text-text text-xl">Vishnu Raam</div>
+              <div class="text-violet font-medium">Founder</div>
+            </div>
+          </div>
+        </div>
+      </GlassCard>
+    </div>
+  </section>
+
+  <!-- Section 8: CLOSING CTA -->
+  <CTASection
+    title="The divide is real. <span class='text-gradient'>Which side are you building on?</span>"
+    subtitle="Whether you're an organization adopting AI or an individual preparing for what's next — the conversation starts here."
+    cta={{ label: 'Start the Conversation', href: '/contact' }}
+  />
+</BaseLayout>

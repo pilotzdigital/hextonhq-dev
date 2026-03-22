@@ -1,0 +1,71 @@
+---
+import SectionHeading from './SectionHeading.astro';
+
+interface FAQ {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  faqs: FAQ[];
+}
+
+const { faqs } = Astro.props;
+
+// Generate the JSON-LD schema for Google and Answer Engines
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<section class="py-16 max-w-3xl mx-auto">
+  <SectionHeading 
+    title="Common Questions" 
+    align="center"
+  />
+
+  <div class="mt-8 space-y-4" itemscope itemtype="https://schema.org/FAQPage">
+    {faqs.map((faq, index) => (
+      <details class="glass rounded-2xl group cursor-pointer" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <summary class="p-6 font-bold text-slate-200 flex justify-between items-center outline-none" itemprop="name">
+          {faq.question}
+          <span class="transition-transform duration-300 group-open:rotate-180 text-violet-400">
+            <svg w="20" h="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </span>
+        </summary>
+        <div class="px-6 pb-6 text-slate-400 leading-relaxed" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <div itemprop="text">{faq.answer}</div>
+        </div>
+      </details>
+    ))}
+  </div>
+</section>
+
+<!-- Inject strict AEO JSON-LD Schema into the head -->
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+<style>
+  details > summary {
+    list-style: none; /* Hide default arrow */
+  }
+  details > summary::-webkit-details-marker {
+    display: none;
+  }
+  /* Optional smooth reveal animation */
+  details[open] div {
+    animation: slideDown 0.3s ease-out;
+  }
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>

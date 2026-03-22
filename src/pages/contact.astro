@@ -1,0 +1,150 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import GlassCard from '../components/ui/GlassCard.astro';
+import SchemaOrg from '../components/seo/SchemaOrg.astro';
+import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
+
+const contactSchema = {
+  '@type': 'LocalBusiness',
+  name: 'HextonHQ',
+  description: 'AI-powered marketing systems — Build, Host, Teach.',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Hyderabad',
+    addressRegion: 'Telangana',
+    addressCountry: 'IN',
+  },
+  email: 'hello@hextonhq.com',
+  url: 'https://hextonhq.com',
+};
+---
+
+<BaseLayout
+  title="Contact"
+  description="Get in touch with HextonHQ. Book a free discovery call or send us a message. Based in Hyderabad, India — working worldwide."
+>
+  <SchemaOrg schema={contactSchema} />
+
+  <section class="py-24 relative">
+    <div class="max-w-[var(--container-max)] mx-auto px-6">
+      <Breadcrumbs items={[
+        { name: 'Home', href: '/' },
+        { name: 'Contact' },
+      ]} />
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <!-- Left: Contact Info -->
+        <div>
+          <span class="text-sm font-medium uppercase tracking-wider text-violet">Get In Touch</span>
+          <h1 class="text-4xl sm:text-5xl font-bold font-heading mt-4 leading-tight">
+            Let's build something <span class="text-gradient">extraordinary.</span>
+          </h1>
+          <p class="text-text-secondary text-lg mt-6 leading-relaxed">
+            No pitch decks. No buzzwords. Just a straight conversation about what you need
+            and how we can help. Book a free 30-minute discovery call or send us a message.
+          </p>
+
+          <div class="space-y-6 mt-8">
+            <GlassCard hover={false}>
+              <div class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded-lg bg-violet/10 flex items-center justify-center shrink-0">
+                  <span class="text-lg">📧</span>
+                </div>
+                <div>
+                  <p class="text-sm text-text-secondary">Email</p>
+                  <a href="mailto:hello@hextonhq.com" class="font-medium hover:text-violet transition-colors">hello@hextonhq.com</a>
+                </div>
+              </div>
+            </GlassCard>
+
+            <GlassCard hover={false}>
+              <div class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded-lg bg-violet/10 flex items-center justify-center shrink-0">
+                  <span class="text-lg">📍</span>
+                </div>
+                <div>
+                  <p class="text-sm text-text-secondary">Location</p>
+                  <p class="font-medium">Hyderabad, India</p>
+                </div>
+              </div>
+            </GlassCard>
+
+            <GlassCard hover={false}>
+              <div class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded-lg bg-violet/10 flex items-center justify-center shrink-0">
+                  <span class="text-lg">🌏</span>
+                </div>
+                <div>
+                  <p class="text-sm text-text-secondary">Working Hours</p>
+                  <p class="font-medium">Worldwide — async-first, flexible hours</p>
+                </div>
+              </div>
+            </GlassCard>
+          </div>
+        </div>
+
+        <!-- Right: Contact Form -->
+        <div>
+          <GlassCard hover={false} class="p-8">
+            <h2 class="text-xl font-heading font-bold mb-6">Send a Message</h2>
+            <form class="space-y-5" id="contact-form">
+              <div>
+                <label for="name" class="block text-sm font-medium text-text-secondary mb-2">Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  required
+                  class="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text placeholder:text-text-secondary/50 focus:border-violet focus:ring-1 focus:ring-violet outline-none transition-colors"
+                  placeholder="Your name"
+                />
+              </div>
+              <div>
+                <label for="email" class="block text-sm font-medium text-text-secondary mb-2">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  class="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text placeholder:text-text-secondary/50 focus:border-violet focus:ring-1 focus:ring-violet outline-none transition-colors"
+                  placeholder="you@company.com"
+                />
+              </div>
+              <div>
+                <label for="subject" class="block text-sm font-medium text-text-secondary mb-2">What can we help with?</label>
+                <select
+                  id="subject"
+                  name="subject"
+                  class="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text focus:border-violet focus:ring-1 focus:ring-violet outline-none transition-colors"
+                >
+                  <option>AI Marketing Architecture</option>
+                  <option>Fractional AI-CMO</option>
+                  <option>Managed Open-Source Stack</option>
+                  <option>Training & Workshops</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div>
+                <label for="message" class="block text-sm font-medium text-text-secondary mb-2">Message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="4"
+                  required
+                  class="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text placeholder:text-text-secondary/50 focus:border-violet focus:ring-1 focus:ring-violet outline-none transition-colors resize-none"
+                  placeholder="Tell us about your project or question..."
+                ></textarea>
+              </div>
+              <button
+                type="submit"
+                class="w-full py-3 rounded-xl bg-gradient-to-r from-violet to-rose text-white font-medium hover:opacity-90 transition-opacity"
+              >
+                Send Message
+              </button>
+            </form>
+          </GlassCard>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

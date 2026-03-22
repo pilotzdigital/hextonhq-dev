@@ -1,0 +1,33 @@
+---
+import GlassCard from './GlassCard.astro';
+import SectionHeading from './SectionHeading.astro';
+
+interface Props {
+  tools: {
+    name: string;
+    category: string;
+  }[];
+}
+
+const { tools } = Astro.props;
+---
+
+<section class="py-16">
+  <SectionHeading 
+    title="The Infrastructure" 
+    subtitle="We don't build proprietary black boxes. We deploy the world's best open-source and enterprise tools into your environment."
+    align="left"
+  />
+
+  <div class="flex flex-wrap gap-4 mt-8">
+    {tools.map((tool) => (
+      <GlassCard class="!p-4 flex items-center gap-3 cursor-default" hover={true}>
+        <div class="h-2 w-2 rounded-full bg-violet-500 shadow-[0_0_8px_rgba(168,85,247,0.8)]"></div>
+        <div>
+          <p class="font-bold text-slate-200 text-sm">{tool.name}</p>
+          <p class="text-xs text-slate-500 uppercase tracking-wider">{tool.category}</p>
+        </div>
+      </GlassCard>
+    ))}
+  </div>
+</section>

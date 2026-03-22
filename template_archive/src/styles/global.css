@@ -1,0 +1,347 @@
+@import "tailwindcss";
+
+/* ============================================
+   HextonHQ Design System
+   ============================================ */
+
+@theme {
+  /* --- Colors: Dark Mode (Primary) --- */
+  --color-bg: #050510;
+  --color-surface: #0B1120;
+  --color-surface-elevated: #131A2E;
+  --color-border: #1E293B;
+  --color-text: #FFFFFF;
+  --color-text-secondary: #94A3B8;
+  --color-violet: #A855F7;
+  --color-rose: #FB7185;
+  --color-gold: #FFB800;
+  --color-success: #10B981;
+
+  /* --- Colors: Light Mode (Secondary) --- */
+  --color-bg-light: #FAFAF8;
+  --color-surface-light: #F0EDF5;
+  --color-border-light: #E2DFE8;
+  --color-text-light: #0A0A1A;
+  --color-text-secondary-light: #64607A;
+  --color-violet-light: #7C3AED;
+  --color-rose-light: #F43F5E;
+
+  /* --- Typography --- */
+  --font-heading: 'Space Grotesk', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* --- Spacing --- */
+  --section-gap: 6rem;
+  --container-max: 1200px;
+  --container-wide: 1400px;
+}
+
+/* ============================================
+   Base Styles
+   ============================================ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Light mode */
+body.light {
+  background-color: var(--color-bg-light);
+  color: var(--color-text-light);
+  --color-bg: var(--color-bg-light);
+  --color-surface: var(--color-surface-light);
+  --color-text: var(--color-text-light);
+  --color-text-secondary: var(--color-text-secondary-light);
+  --color-border: var(--color-border-light);
+}
+
+/* Global Page Glow tracking */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(168, 85, 247, 0.15), transparent 40%);
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 10;
+}
+
+body.light::after {
+  background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(139, 92, 246, 0.25), transparent 40%);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+/* ============================================
+   HextonHQ Utilities
+   ============================================ */
+
+/* Gradient text */
+.text-gradient {
+  background: linear-gradient(135deg, var(--color-violet), var(--color-rose));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.light .text-gradient {
+  background: linear-gradient(135deg, var(--color-violet-light), var(--color-rose-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glassmorphism */
+.glass {
+  background: rgba(11, 17, 32, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(30, 41, 59, 0.5);
+}
+
+.light .glass {
+  background: rgba(240, 237, 245, 0.7);
+  border-color: rgba(226, 223, 232, 0.6);
+}
+
+/* Grain texture overlay */
+.grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Dot grid pattern */
+.dot-grid {
+  background-image: radial-gradient(circle, rgba(148, 163, 184, 0.15) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Gradient glow orbs */
+.glow-violet {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.15), transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.glow-rose {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(251, 113, 133, 0.1), transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+/* Card hover glow container (no longer renders full glow, only interactive lift) */
+.card-glow {
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.card-glow:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 40px rgba(168, 85, 247, 0.1);
+}
+
+/* Magic Card 3D Tilt */
+.magic-tilt {
+  transform: perspective(1000px) rotateX(var(--rotate-x, 0deg)) rotateY(var(--rotate-y, 0deg));
+  transition: transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Smooth snapback on mouse leave */
+.magic-tilt:not(:hover) {
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Add an internal white glare/shimmer effect when tilted */
+.magic-tilt::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(800px circle at var(--card-mouse-x, 50%) var(--card-mouse-y, 50%),
+      rgba(255, 255, 255, 0.1),
+      transparent 40%);
+  opacity: var(--tilt-active, 0);
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 20;
+  mix-blend-mode: overlay;
+}
+
+/* Gradient border spotlight using card-local coordinates */
+.gradient-border {
+  border-radius: 1rem;
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(400px circle at var(--card-mouse-x, 50%) var(--card-mouse-y, 50%), rgba(168, 85, 247, 0.8), transparent 40%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.light .gradient-border::before {
+  background: radial-gradient(400px circle at var(--card-mouse-x, 50%) var(--card-mouse-y, 50%), rgba(124, 58, 237, 0.8), transparent 40%);
+}
+
+.gradient-border:hover::before {
+  opacity: 1;
+}
+
+/* ============================================
+   Animations
+   ============================================ */
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    opacity: 0.15;
+  }
+
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.6s ease-out both;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
+}
+
+/* Stagger delays */
+.delay-100 {
+  animation-delay: 100ms;
+}
+
+.delay-200 {
+  animation-delay: 200ms;
+}
+
+.delay-300 {
+  animation-delay: 300ms;
+}
+
+.delay-400 {
+  animation-delay: 400ms;
+}
+
+.delay-500 {
+  animation-delay: 500ms;
+}
+
+/* Scroll-triggered animation observer class */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

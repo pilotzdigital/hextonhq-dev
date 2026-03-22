@@ -1,0 +1,174 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/ui/Hero.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import ServiceCard from '../components/ui/ServiceCard.astro';
+import Timeline from '../components/ui/Timeline.astro';
+import FAQ from '../components/seo/FAQ.astro';
+import CTASection from '../components/ui/CTASection.astro';
+---
+
+<BaseLayout
+  title="HextonHQ"
+  description="HextonHQ builds, hosts, and teaches AI-powered marketing systems. Extraordinary things happen when extraordinary technology reaches ordinary people."
+>
+  <!-- Hero -->
+  <Hero
+    title='Extraordinary things happen when <span class="text-gradient">extraordinary technology</span> reaches ordinary people.'
+    subtitle="We build, host, and teach AI-powered marketing systems for founders, growing teams, and institutions. Ambition of a giant, budget of a startup."
+    stats={[
+      { value: '10x', label: 'Faster Implementation' },
+      { value: '60%', label: 'Cost Reduction' },
+      { value: '99.9%', label: 'Uptime Guaranteed' },
+    ]}
+  />
+
+  <!-- Services -->
+  <section class="py-20 relative" id="services">
+    <div class="max-w-[var(--container-max)] mx-auto px-6">
+      <SectionHeading
+        label="What We Do"
+        title='We don&apos;t sell AI. <span class="text-gradient">We install it.</span>'
+        subtitle="Three core pillars designed for builders who need results, not reports."
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <ServiceCard
+          icon="🤖"
+          title="AI Marketing Architecture"
+          description="Custom AI agent systems that automate your marketing pipeline — from lead capture to nurture to conversion. Built on open-source, owned by you."
+          href="/services"
+        />
+        <ServiceCard
+          icon="🧠"
+          title="Fractional AI-CMO"
+          description="Get a senior marketing strategist who actually builds — strategy, architecture, and implementation in one person. Not advice. Outcomes."
+          href="/services"
+        />
+        <ServiceCard
+          icon="🛠️"
+          title="Managed Open-Source Stack"
+          description="Pre-configured marketing tools — email, analytics, CRM, automation — at a fraction of enterprise costs. We host, maintain, and update."
+          href="/pricing"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="py-20 relative" id="how-it-works">
+    <div class="max-w-[var(--container-max)] mx-auto px-6">
+      <SectionHeading
+        label="How It Works"
+        title='From zero to <span class="text-gradient">fully operational</span> in weeks, not months.'
+        subtitle="A simple, transparent process designed for speed."
+      />
+
+      <Timeline steps={[
+        {
+          step: '01',
+          title: 'Discover',
+          description: 'We audit your current stack, map your goals, and identify the highest-impact automation opportunities. No generic playbooks.',
+        },
+        {
+          step: '02',
+          title: 'Build',
+          description: 'We architect and implement your AI marketing system using open-source tools. You own everything — code, data, infrastructure.',
+        },
+        {
+          step: '03',
+          title: 'Launch & Optimize',
+          description: 'Go live with full support. We monitor, iterate, and train your team to operate independently. Earn trust, not dependence.',
+        },
+      ]} />
+    </div>
+  </section>
+
+  <!-- Positioning -->
+  <section class="py-20 relative" id="why-us">
+    <div class="max-w-[var(--container-max)] mx-auto px-6">
+      <SectionHeading
+        label="Why HextonHQ"
+        title='The gap between agencies and SaaS — <span class="text-gradient">that&apos;s us.</span>'
+      />
+
+      <div class="overflow-x-auto">
+        <table class="w-full glass rounded-2xl overflow-hidden text-sm">
+          <thead>
+            <tr class="border-b border-border">
+              <th class="text-left p-4 font-heading font-bold">Factor</th>
+              <th class="p-4 text-center font-heading">Traditional Agencies</th>
+              <th class="p-4 text-center font-heading">AI SaaS Tools</th>
+              <th class="p-4 text-center font-heading text-gradient">HextonHQ</th>
+            </tr>
+          </thead>
+          <tbody class="text-text-secondary">
+            <tr class="border-b border-border/50">
+              <td class="p-4 font-medium text-text">Strategy</td>
+              <td class="p-4 text-center">✅</td>
+              <td class="p-4 text-center">❌</td>
+              <td class="p-4 text-center text-success">✅</td>
+            </tr>
+            <tr class="border-b border-border/50">
+              <td class="p-4 font-medium text-text">Implementation</td>
+              <td class="p-4 text-center">Some</td>
+              <td class="p-4 text-center">Self-serve</td>
+              <td class="p-4 text-center text-success">✅ Full-stack</td>
+            </tr>
+            <tr class="border-b border-border/50">
+              <td class="p-4 font-medium text-text">AI-Native</td>
+              <td class="p-4 text-center">❌</td>
+              <td class="p-4 text-center">✅</td>
+              <td class="p-4 text-center text-success">✅</td>
+            </tr>
+            <tr class="border-b border-border/50">
+              <td class="p-4 font-medium text-text">Open-Source</td>
+              <td class="p-4 text-center">❌</td>
+              <td class="p-4 text-center">❌</td>
+              <td class="p-4 text-center text-success">✅</td>
+            </tr>
+            <tr>
+              <td class="p-4 font-medium text-text">Cost</td>
+              <td class="p-4 text-center">$15K-$50K/mo</td>
+              <td class="p-4 text-center">$500-$5K/mo</td>
+              <td class="p-4 text-center text-success font-medium">$3K-$8K/mo</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <FAQ
+    subtitle="Got Questions?"
+    items={[
+      {
+        question: 'What makes HextonHQ different from a regular marketing agency?',
+        answer: 'We build, not advise. Traditional agencies sell strategy decks. We architect and implement AI-powered marketing systems using open-source tools. You own everything — the code, the data, the infrastructure. No vendor lock-in.',
+      },
+      {
+        question: 'Do I need technical knowledge to work with you?',
+        answer: 'Not at all. We handle the technical implementation end-to-end. We also train your team so they can operate independently. Our goal is to earn trust, not dependence.',
+      },
+      {
+        question: 'What does the Managed Open-Source Stack include?',
+        answer: 'Pre-configured, hosted marketing tools including email automation (Listmonk), analytics (Plausible/Matomo), CRM, and workflow automation — all open-source, all maintained by us. Starts at $49/mo.',
+      },
+      {
+        question: 'How long does implementation take?',
+        answer: 'Most projects go from discovery to launch in 4-8 weeks. We move fast because we use battle-tested open-source tools and AI-powered development workflows.',
+      },
+      {
+        question: 'Can you work with my existing tools?',
+        answer: 'Absolutely. Our MarTech Stack Auditing service evaluates your current setup, identifies redundancies, and integrates new AI capabilities alongside what already works.',
+      },
+    ]}
+  />
+
+  <!-- CTA -->
+  <CTASection
+    title='Ready to build? <span class="text-gradient">Let&apos;s talk.</span>'
+    subtitle="Book a free discovery call. No pitch decks. Just a conversation about what you need."
+  />
+</BaseLayout>

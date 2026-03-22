@@ -1,0 +1,145 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import GlassCard from './GlassCard.astro';
+
+interface CarouselCard {
+  hook: string;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  cards: CarouselCard[];
+}
+
+const { cards } = Astro.props;
+---
+
+<section class="py-24 overflow-hidden relative">
+  <div class="max-w-7xl mx-auto px-6 mb-12">
+    <SectionHeading 
+      title="We don't sell advice. We install systems." 
+      subtitle="Our Architecture"
+      align="left"
+    />
+  </div>
+
+  <!-- 
+    Native CSS Scroll Snapping Carousel 
+    Utilizes Tailwind v4 features. The cards are stacked horizontally.
+    'snap-x snap-mandatory' ensures the user snaps perfectly to the center of each card.
+  -->
+  <div class="carousel-container flex gap-6 overflow-x-auto snap-x snap-mandatory pb-12 px-[50vw] md:px-[35vw] scroll-smooth hide-scrollbar">
+    {cards.map((card, index) => (
+      <div class="carousel-item snap-center shrink-0 w-[85vw] md:w-[400px] transition-all duration-500 will-change-transform">
+        <GlassCard hover={false} class="h-full flex flex-col justify-between group relative overflow-hidden transition-all duration-500">
+          
+          <!-- Animated gradient orb inside card on hover -->
+          <div class="absolute inset-0 bg-gradient-to-br from-violet-500/10 to-rose-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-2xl"></div>
+          
+          <div class="relative z-10">
+            <p class="text-sm font-medium tracking-wide bg-gradient-to-r from-violet-400 to-rose-400 bg-clip-text text-transparent mb-6 pb-4 border-b border-white/5">
+              {card.hook}
+            </p>
+            <h3 class="text-2xl font-bold text-slate-100 mb-4 font-display">
+              {card.title}
+            </h3>
+            <p class="text-slate-400 leading-relaxed">
+              {card.description}
+            </p>
+          </div>
+
+          <div class="relative z-10 mt-8 pt-6 border-t border-white/5 flex items-center justify-between">
+            <span class="text-xs uppercase tracking-widest text-slate-500">Module 0{index + 1}</span>
+            <button class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-violet-500/20 group-hover:text-violet-300 transition-colors text-slate-400 border border-white/10 group-hover:border-violet-500/30">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </GlassCard>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .hide-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  /* 
+    The magic Z-index depth effect. 
+    We use plain JS via an Intersection Observer to detect the center card.
+    The center card gets scale 1 and opacity 1. Side cards get scale 0.9 and opacity 0.5 + blur.
+  */
+  .carousel-item {
+    transform: scale(0.85);
+    opacity: 0.3;
+    filter: blur(4px);
+  }
+  
+  .carousel-item.is-active {
+    transform: scale(1);
+    opacity: 1;
+    filter: blur(0px);
+    z-index: 10;
+  }
+</style>
+
+<script>
+  // Astro runs scripts once on mount. 
+  // We use IntersectionObserver to detect which card is dead center.
+  const setupCarousel = () => {
+    const items = document.querySelectorAll('.carousel-item');
+    const container = document.querySelector('.carousel-container');
+    
+    if (!items.length || !container) return;
+
+    // Center the container padding offset so the first item aligns center.
+    const updateActiveItem = () => {
+      const containerCenter = container.getBoundingClientRect().left + (container.getBoundingClientRect().width / 2);
+      
+      let closestItem = items[0];
+      let minDistance = Infinity;
+
+      items.forEach(item => {
+        const itemCenter = item.getBoundingClientRect().left + (item.getBoundingClientRect().width / 2);
+        const distance = Math.abs(containerCenter - itemCenter);
+        
+        if (distance < minDistance) {
+          minDistance = distance;
+          closestItem = item;
+        }
+      });
+
+      items.forEach(item => {
+        if (item === closestItem) {
+          item.classList.add('is-active');
+        } else {
+          item.classList.remove('is-active');
+        }
+      });
+    };
+
+    container.addEventListener('scroll', () => {
+      window.requestAnimationFrame(updateActiveItem);
+    }, { passive: true });
+
+    // Initial check
+    setTimeout(updateActiveItem, 100);
+  };
+
+  // Run on load and after Astro page transitions
+  document.addEventListener('astro:page-load', setupCarousel);
+  // Also run standard DOM loaded for first paint
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupCarousel);
+  } else {
+    setupCarousel();
+  }
+</script>

@@ -1,0 +1,95 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import GlassCard from '../components/ui/GlassCard.astro';
+import CTASection from '../components/ui/CTASection.astro';
+import SchemaOrg from '../components/seo/SchemaOrg.astro';
+import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
+
+const values = [
+  { icon: '🔨', title: 'Build, don\'t advise', description: 'We ship real systems, not strategy decks. Every engagement ends with working infrastructure.' },
+  { icon: '🔓', title: 'Open by default', description: 'Open-source first. You own your code, your data, your infrastructure. No vendor lock-in, ever.' },
+  { icon: '🤝', title: 'Earn trust, not dependence', description: 'We train your team to operate independently. Our job is done when you don\'t need us anymore.' },
+  { icon: '📚', title: 'Stay a student', description: 'The AI landscape changes weekly. We stay curious, experiment relentlessly, and share what we learn.' },
+  { icon: '📊', title: 'Measure in impact, not hours', description: 'We don\'t bill for effort. We charge for outcomes — systems that work, savings that compound.' },
+];
+
+const founderSchema = {
+  '@type': 'Person',
+  name: 'Vishnu Raam',
+  jobTitle: 'Founder',
+  worksFor: {
+    '@type': 'Organization',
+    name: 'HextonHQ',
+  },
+};
+---
+
+<BaseLayout
+  title="About"
+  description="HextonHQ — Founded by Vishnu Raam in Hyderabad. We believe extraordinary things happen when extraordinary technology reaches ordinary people."
+>
+  <SchemaOrg schema={founderSchema} />
+
+  <section class="py-24 relative">
+    <div class="max-w-[var(--container-max)] mx-auto px-6">
+      <Breadcrumbs items={[
+        { name: 'Home', href: '/' },
+        { name: 'About' },
+      ]} />
+
+      <!-- Mission -->
+      <div class="max-w-3xl mb-20">
+        <span class="text-sm font-medium uppercase tracking-wider text-violet">About HextonHQ</span>
+        <h1 class="text-4xl sm:text-5xl font-bold font-heading mt-4 leading-tight">
+          We bring the world's most powerful tools to the people who will do the most
+          <span class="text-gradient"> extraordinary things</span> with them.
+        </h1>
+        <p class="text-text-secondary text-lg mt-6 leading-relaxed">
+          HextonHQ was founded in 2026 by Vishnu Raam in Hyderabad, India, with a simple conviction:
+          the size of your team should never limit the size of your ambition. We exist for the
+          <strong class="text-text"> builder in between</strong> — founders, growing teams, and institutions
+          with the ambition of a giant and the budget of a startup.
+        </p>
+      </div>
+
+      <!-- Vision -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-20">
+        <GlassCard>
+          <h3 class="text-lg font-heading font-bold mb-3">🌍 Vision</h3>
+          <p class="text-text-secondary leading-relaxed">
+            A world where the size of your team never limits the size of your ambition.
+          </p>
+        </GlassCard>
+        <GlassCard>
+          <h3 class="text-lg font-heading font-bold mb-3">🎯 Mission</h3>
+          <p class="text-text-secondary leading-relaxed">
+            Bring the world's most powerful tools to the people who will do the most extraordinary things with them.
+          </p>
+        </GlassCard>
+      </div>
+
+      <!-- Values -->
+      <SectionHeading
+        label="Our Values"
+        title='Five principles that guide <span class="text-gradient">everything we build.</span>'
+        align="left"
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {values.map((value) => (
+          <GlassCard>
+            <span class="text-2xl mb-3 block">{value.icon}</span>
+            <h3 class="text-lg font-heading font-bold mb-2">{value.title}</h3>
+            <p class="text-text-secondary text-sm leading-relaxed">{value.description}</p>
+          </GlassCard>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTASection
+    title='Want to work with <span class="text-gradient">builders?</span>'
+    subtitle="We speak straight. No pitch decks, no buzzwords. Just results."
+  />
+</BaseLayout>

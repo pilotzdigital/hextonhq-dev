@@ -1,0 +1,136 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import PricingCard from '../components/ui/PricingCard.astro';
+import FAQ from '../components/seo/FAQ.astro';
+import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
+
+const plans = [
+  {
+    name: 'Starter',
+    price: '$49',
+    description: 'Essential open-source marketing tools, hosted and maintained.',
+    features: [
+      'Listmonk email automation',
+      'Plausible analytics',
+      'Basic CRM setup',
+      'Weekly backups',
+      'Email support',
+    ],
+  },
+  {
+    name: 'Growth',
+    price: '$149',
+    popular: true,
+    description: 'Full marketing stack with advanced automation and priority support.',
+    features: [
+      'Everything in Starter',
+      'Advanced workflow automation',
+      'A/B testing infrastructure',
+      'Custom integrations',
+      'Daily backups',
+      'Priority Slack support',
+      'Monthly optimization review',
+    ],
+  },
+  {
+    name: 'Enterprise',
+    price: '$399',
+    description: 'Complete AI marketing architecture with dedicated support.',
+    features: [
+      'Everything in Growth',
+      'Custom AI agent setup',
+      'Dedicated infrastructure',
+      'Multi-channel automation',
+      'Real-time backups',
+      'Dedicated support engineer',
+      'Weekly strategy calls',
+      'Custom SLA',
+    ],
+  },
+];
+
+const servicesPricing = [
+  {
+    name: 'Fractional AI-CMO',
+    price: '$3,000',
+    description: 'Senior marketing strategist + builder. Weekly engagement.',
+    features: [
+      'Strategy + implementation',
+      'AI marketing architecture',
+      'Team training included',
+      'Bi-weekly reports',
+      '4 strategy calls/month',
+    ],
+    cta: { label: 'Book Discovery Call', href: '/contact' },
+  },
+];
+---
+
+<BaseLayout
+  title="Pricing"
+  description="Transparent pricing for HextonHQ's managed open-source marketing stack and AI marketing services. Plans from $49/mo."
+>
+  <section class="py-24 relative">
+    <div class="max-w-[var(--container-max)] mx-auto px-6">
+      <Breadcrumbs items={[
+        { name: 'Home', href: '/' },
+        { name: 'Pricing' },
+      ]} />
+
+      <!-- Managed Stack Pricing -->
+      <SectionHeading
+        label="Managed Open-Source Stack"
+        title='Enterprise tools. <span class="text-gradient">Startup prices.</span>'
+        subtitle="Pre-configured, hosted, and maintained. You focus on marketing, we handle infrastructure."
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-24">
+        {plans.map((plan) => (
+          <PricingCard {...plan} />
+        ))}
+      </div>
+
+      <!-- Services Pricing -->
+      <SectionHeading
+        label="Services"
+        title='Invest in <span class="text-gradient">outcomes, not hours.</span>'
+        subtitle="Flexible engagements designed for growing businesses."
+      />
+
+      <div class="max-w-md mx-auto">
+        {servicesPricing.map((plan) => (
+          <PricingCard {...plan} popular={true} />
+        ))}
+      </div>
+
+      <p class="text-text-secondary text-sm text-center mt-8">
+        Custom projects and AI Workflow Implementation quoted per engagement.
+        <a href="/contact" class="text-violet hover:underline ml-1">Get a custom quote →</a>
+      </p>
+    </div>
+  </section>
+
+  <FAQ
+    subtitle="Pricing FAQ"
+    title="Common pricing questions"
+    items={[
+      {
+        question: 'What\'s included in the managed stack?',
+        answer: 'Each plan includes hosted, configured, and maintained open-source marketing tools. We handle updates, backups, security patches, and monitoring so you can focus on marketing.',
+      },
+      {
+        question: 'Can I upgrade or downgrade at any time?',
+        answer: 'Yes. Plans are month-to-month with no long-term contracts. Upgrade, downgrade, or cancel anytime.',
+      },
+      {
+        question: 'Do you offer custom pricing?',
+        answer: 'For larger teams or custom AI marketing architecture projects, we create tailored proposals. Contact us for a free discovery call.',
+      },
+      {
+        question: 'Is there a setup fee?',
+        answer: 'No setup fees for managed stack plans. Custom AI architecture projects include implementation costs quoted separately during discovery.',
+      },
+    ]}
+  />
+</BaseLayout>

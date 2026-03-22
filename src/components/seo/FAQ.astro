@@ -1,0 +1,104 @@
+---
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  items: FAQItem[];
+  title?: string;
+  subtitle?: string;
+}
+
+const { items, title = 'Frequently Asked Questions', subtitle } = Astro.props;
+
+const faqSchema = {
+  '@type': 'FAQPage',
+  mainEntity: items.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.answer,
+    },
+  })),
+};
+---
+
+<section id="faq" class="py-20 relative">
+  <div class="max-w-3xl mx-auto px-6">
+    <div class="text-center mb-12">
+      {subtitle && <span class="text-sm font-medium uppercase tracking-wider text-violet">{subtitle}</span>}
+      <h2 class="text-3xl sm:text-4xl font-bold mt-2 font-heading">{title}</h2>
+    </div>
+
+    <div class="space-y-4" id="faq-accordion">
+      {items.map((item, i) => (
+        <div class="glass rounded-xl overflow-hidden card-glow magic-tilt" data-faq-item>
+          <button
+            class="w-full flex items-center justify-between p-5 text-left font-medium text-text hover:text-violet transition-colors"
+            data-faq-trigger
+            aria-expanded="false"
+            aria-controls={`faq-answer-${i}`}
+          >
+            <span>{item.question}</span>
+            <svg
+              class="w-5 h-5 shrink-0 ml-4 transition-transform duration-300"
+              data-faq-icon
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div
+            id={`faq-answer-${i}`}
+            class="overflow-hidden transition-all duration-300 max-h-0"
+            data-faq-content
+          >
+            <p class="px-5 pb-5 text-text-secondary leading-relaxed">{item.answer}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- FAQ Schema -->
+  <script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', ...faqSchema })} />
+</section>
+
+<script>
+  document.querySelectorAll('[data-faq-trigger]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const item = button.closest('[data-faq-item]')!;
+      const content = item.querySelector('[data-faq-content]') as HTMLElement;
+      const icon = item.querySelector('[data-faq-icon]') as HTMLElement;
+      const isOpen = button.getAttribute('aria-expanded') === 'true';
+
+      // Close all others
+      document.querySelectorAll('[data-faq-item]').forEach((other) => {
+        if (other !== item) {
+          const otherBtn = other.querySelector('[data-faq-trigger]')!;
+          const otherContent = other.querySelector('[data-faq-content]') as HTMLElement;
+          const otherIcon = other.querySelector('[data-faq-icon]') as HTMLElement;
+          otherBtn.setAttribute('aria-expanded', 'false');
+          otherContent.style.maxHeight = '0';
+          otherIcon.style.transform = 'rotate(0deg)';
+        }
+      });
+
+      // Toggle current
+      if (isOpen) {
+        button.setAttribute('aria-expanded', 'false');
+        content.style.maxHeight = '0';
+        icon.style.transform = 'rotate(0deg)';
+      } else {
+        button.setAttribute('aria-expanded', 'true');
+        content.style.maxHeight = content.scrollHeight + 'px';
+        icon.style.transform = 'rotate(180deg)';
+      }
+    });
+  });
+</script>
