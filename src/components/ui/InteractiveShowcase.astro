@@ -1,59 +1,55 @@
 ---
 /**
  * Section 2: THE INTERACTIVE SHOWCASE
- * Social proof cards with metrics - glassmorphic horizontal scroller
+ * 6 glassmorphic case study cards with metrics
  */
 import SectionHeading from './SectionHeading.astro';
 
 interface ShowcaseCard {
   metric: string;
+  title: string;
   description: string;
-  icon?: string;
 }
 
 interface Props {
   cards: ShowcaseCard[];
   label?: string;
   headline?: string;
+  subheadline?: string;
 }
 
 const { 
   cards, 
   label = "Our Output", 
-  headline = "Not theory. <span class='text-gradient'>Architecture.</span>" 
+  headline = "Not theory. <span class='text-gradient'>Architecture.</span>",
+  subheadline = "A look inside the systems we build and the bottlenecks we break."
 } = Astro.props;
-
-// Default icons for cards
-const defaultIcons = [
-  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-6 h-6"><path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`,
-  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-6 h-6"><path d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941"/></svg>`,
-  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-6 h-6"><path d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>`,
-];
 ---
 
 <section class="showcase-section py-24 relative overflow-hidden" id="showcase" data-testid="showcase-section">
   <!-- Background glow effects -->
   <div class="absolute inset-0 pointer-events-none">
-    <div class="absolute w-[500px] h-[500px] rounded-full bg-gradient-to-br from-violet/15 to-transparent blur-[100px] -top-32 left-1/4"></div>
-    <div class="absolute w-[400px] h-[400px] rounded-full bg-gradient-to-tl from-rose/10 to-transparent blur-[80px] -bottom-20 right-1/4"></div>
+    <div class="absolute w-[600px] h-[600px] rounded-full bg-gradient-to-br from-violet/15 to-transparent blur-[120px] -top-32 left-1/4"></div>
+    <div class="absolute w-[500px] h-[500px] rounded-full bg-gradient-to-tl from-rose/10 to-transparent blur-[100px] -bottom-20 right-1/4"></div>
   </div>
 
   <div class="max-w-7xl mx-auto px-6 relative z-10">
     <SectionHeading 
       label={label}
       title={headline}
+      subtitle={subheadline}
       align="center"
     />
 
-    <!-- Showcase Cards Container -->
-    <div class="showcase-cards grid grid-cols-1 md:grid-cols-3 gap-6 mt-16" data-testid="showcase-cards">
+    <!-- Showcase Cards Grid - 2x3 layout -->
+    <div class="showcase-cards grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16" data-testid="showcase-cards">
       {cards.map((card, index) => (
         <div 
           class="showcase-card group relative"
           data-testid={`showcase-card-${index}`}
-          style={`animation-delay: ${index * 150}ms`}
+          style={`animation-delay: ${index * 100}ms`}
         >
-          <div class="glass rounded-3xl p-8 h-full relative overflow-hidden card-glow gradient-border magic-tilt transition-all duration-500">
+          <div class="glass rounded-3xl p-8 h-full relative overflow-hidden card-glow gradient-border transition-all duration-500 hover:scale-[1.02]">
             <!-- Animated gradient background on hover -->
             <div class="absolute inset-0 bg-gradient-to-br from-violet/10 via-transparent to-rose/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
             
@@ -61,22 +57,24 @@ const defaultIcons = [
             <div class="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-violet/50 to-transparent"></div>
             
             <div class="relative z-10">
-              <!-- Icon -->
-              <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-violet/20 to-rose/10 flex items-center justify-center mb-6 text-violet border border-violet/20 group-hover:border-violet/40 group-hover:scale-110 transition-all duration-500" set:html={defaultIcons[index % defaultIcons.length]} />
-              
               <!-- Metric - Large gradient number/text -->
-              <div class="metric-value text-4xl md:text-5xl font-bold font-heading mb-4 bg-gradient-to-r from-violet to-rose bg-clip-text text-transparent animate-counter">
+              <div class="metric-value text-3xl md:text-4xl font-bold font-heading mb-3 bg-gradient-to-r from-violet to-rose bg-clip-text text-transparent">
                 {card.metric}
               </div>
               
+              <!-- Title -->
+              <h3 class="text-lg font-bold font-heading text-white mb-3">
+                {card.title}
+              </h3>
+              
               <!-- Description -->
-              <p class="text-text-secondary leading-relaxed text-lg">
+              <p class="text-text-secondary leading-relaxed text-sm">
                 {card.description}
               </p>
             </div>
 
             <!-- Decorative corner accent -->
-            <div class="absolute bottom-0 right-0 w-24 h-24 bg-gradient-to-tl from-violet/5 to-transparent rounded-tl-full"></div>
+            <div class="absolute bottom-0 right-0 w-20 h-20 bg-gradient-to-tl from-violet/5 to-transparent rounded-tl-full"></div>
           </div>
         </div>
       ))}
@@ -86,19 +84,21 @@ const defaultIcons = [
 
 <style>
   .showcase-card {
-    opacity: 0;
-    transform: translateY(30px);
     animation: revealCard 0.8s ease-out forwards;
   }
 
   @keyframes revealCard {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
     to {
       opacity: 1;
       transform: translateY(0);
     }
   }
 
-  /* Metric counter animation effect */
+  /* Metric animation effect */
   .metric-value {
     background-size: 200% 200%;
     animation: gradientShift 4s ease infinite;
@@ -108,18 +108,9 @@ const defaultIcons = [
     0%, 100% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
   }
-
-  /* Card glow pulse on hover */
-  .showcase-card:hover .glass {
-    box-shadow: 
-      0 0 40px rgba(168, 85, 247, 0.15),
-      0 0 80px rgba(251, 113, 133, 0.08),
-      inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  }
 </style>
 
 <script>
-  // Intersection Observer for scroll-triggered animations
   function initShowcase() {
     const cards = document.querySelectorAll('.showcase-card');
     

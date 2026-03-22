@@ -9,20 +9,41 @@ import CapabilitiesCarousel from '../components/ui/CapabilitiesCarousel.astro';
 import InteractiveShowcase from '../components/ui/InteractiveShowcase.astro';
 import TechStackMatrix from '../components/ui/TechStackMatrix.astro';
 import FAQAccordion from '../components/ui/FAQAccordion.astro';
+import BrandStory from '../components/ui/BrandStory.astro';
+import ValuesSection from '../components/ui/ValuesSection.astro';
+import FounderNote from '../components/ui/FounderNote.astro';
 
-// Section 2: Interactive Showcase - Social Proof Cards
+// Section 2: Interactive Showcase - 6 Case Study Cards
 const showcaseCards = [
   {
     metric: "4 Hours → 2 Seconds",
-    description: "Automated CRM Lead Enrichment via n8n."
+    title: "The Automation Engine",
+    description: "Deployed a self-hosted n8n pipeline that intercepts inbound leads, uses Perplexity API to research their company, scores the lead, and drafts a personalized outreach email—instantly."
   },
   {
-    metric: "+125% Conversion",
-    description: "Full-Funnel Growth Hacking & CRO."
+    metric: "$24,000/yr → $600/yr",
+    title: "The Open-Source Migration",
+    description: "Migrated a growing sales team off expensive, bloated enterprise software onto a fully proprietary, self-hosted CRM. 100% data sovereignty. Zero monthly seat licenses."
   },
   {
-    metric: "Zero Lock-in",
-    description: "Open-Source Marketing Stack Deployment."
+    metric: "#1 Cited Source in AI",
+    title: "The GEO Dominance",
+    description: "Rewired a client's digital content structure so that when their target audience asks Perplexity or Google's AI Overviews a question, our client is cited as the primary authority."
+  },
+  {
+    metric: "3 Days → Instant",
+    title: "The Operations Bot",
+    description: "Replaced a tangled web of HR and Finance emails with a custom, secure AI agent embedded in Slack. It handles contract generation, data routing, and approvals autonomously."
+  },
+  {
+    metric: "+140% Pipeline Velocity",
+    title: "The Growth Hack",
+    description: "Stepped in as Fractional CMO to tear down static landing pages, replacing them with dynamic, AI-personalized funnels that adapt their copy to the visitor's specific industry."
+  },
+  {
+    metric: "100% Adoption Rate",
+    title: "The Team Transformation",
+    description: "Took a traditional, 15-person marketing department and ran an intensive technical sprint, turning them into AI-native builders who now write their own automation scripts."
   }
 ];
 
@@ -70,26 +91,6 @@ const capabilitiesCards = [
   }
 ];
 
-// Section 5: Tech Stack Matrix
-const techCategories = [
-  {
-    category: "Automation",
-    tools: ["n8n", "Make", "Zapier"]
-  },
-  {
-    category: "AI/LLMs",
-    tools: ["OpenAI", "Anthropic", "LangChain", "Vercel AI SDK"]
-  },
-  {
-    category: "Data/Hosting",
-    tools: ["Supabase", "Dokploy", "Postgres", "Matomo"]
-  },
-  {
-    category: "Frontend",
-    tools: ["Astro", "Next.js", "Payload CMS"]
-  }
-];
-
 // Section 8: FAQ Data
 const faqData = [
   {
@@ -109,7 +110,7 @@ const faqData = [
 
 <BaseLayout
   title="The AI Adoption Company | HextonHQ"
-  description="Extraordinary things happen when extraordinary technology reaches ordinary people. HextonHQ gives organizations and individuals the architecture to build an AI-native future."
+  description="Extraordinary things happen when extraordinary technology reaches ordinary people. HextonHQ builds open-source AI architecture that scales your growth, automates your operations, and trains your team to own it."
 >
   <!-- Section 1: Hero -->
   <Hero
@@ -120,52 +121,28 @@ const faqData = [
     secondaryCTA={{ label: 'See Our Beliefs', href: '#brand-story' }}
   />
 
-  <!-- Section 2: THE INTERACTIVE SHOWCASE (Social Proof) -->
+  <!-- Section 2: THE INTERACTIVE SHOWCASE (Social Proof) - 6 Cards -->
   <InteractiveShowcase 
     cards={showcaseCards}
     label="Our Output"
     headline="Not theory. <span class='text-gradient'>Architecture.</span>"
+    subheadline="A look inside the systems we build and the bottlenecks we break."
   />
 
-  <!-- Section 3: THE BRAND STORY — "This Has Happened Before" -->
-  <section class="py-24 relative" id="brand-story">
-    <div class="max-w-[var(--container-max)] mx-auto px-6">
-      <SectionHeading
-        label="Why We Exist"
-        title="This has <span class='text-gradient'>happened before.</span>"
-      />
-      
-      <div class="max-w-3xl mx-auto mt-12 space-y-6 text-lg text-text-secondary leading-relaxed">
-        <p>
-          When electricity arrived, factories that adopted it didn't just get brighter rooms — they redesigned everything. Assembly lines. Shifts. Entire industries, born overnight. The ones that waited? They didn't get a second chance.
-        </p>
-        <p>
-          AI is that moment.
-        </p>
-        <p>
-          Not the chatbot on a website. Not the auto-generated email. The real thing — systems that think, learn, and execute at a speed no human team can match alone.
-        </p>
-        <p>
-          But here's what nobody talks about: electricity didn't just change factories. It changed <em>people</em>. Entirely new professions. New businesses. New ways of living. The ones who learned to work <em>with</em> it built empires. The ones who feared it got left behind.
-        </p>
-        <p class="font-medium text-text">
-          We started HextonHQ because we believe the size of your team should never limit the size of your ambition. And right now, AI is the greatest equalizer the world has ever seen — if you know how to use it.
-        </p>
-      </div>
-    </div>
-  </section>
+  <!-- Section 3: THE BRAND STORY — "This Has Happened Before" with Light Switch Effect -->
+  <BrandStory label="Why We Exist" />
 
-  <!-- Section 4: OUR CAPABILITIES (The Offerings) - Interactive Glassmorphic Carousel -->
+  <!-- Section 4: OUR CAPABILITIES (The Offerings) - 8-card Interactive Carousel -->
   <CapabilitiesCarousel 
     cards={capabilitiesCards}
     label="Our Architecture"
     headline="We don't sell advice. We <span class='text-gradient'>install systems.</span>"
   />
 
-  <!-- Section 5: THE INFRASTRUCTURE (Tech Stack Matrix) -->
+  <!-- Section 5: THE INFRASTRUCTURE - Infinite Marquee Tech Stack -->
   <TechStackMatrix 
-    categories={techCategories}
     headline="Open by default. <span class='text-gradient'>Scalable by design.</span>"
+    subheadline="We don't lock you into expensive vendor ecosystems. We build your systems using the world's most powerful open-source and enterprise frameworks—hosted entirely on your own servers."
   />
 
   <!-- Section 6: IDENTITY - Adopt. Scale. Prepare. -->
@@ -190,86 +167,33 @@ const faqData = [
         <ServiceCard
           icon="shield"
           title="Prepare."
-          description="The AI economy rewards builders, not bystanders. We train individuals and teams to operate in an AI-native world — before the market decides for them."
+          description="We train individuals and teams to operate in an AI-native world — before the market decides for them."
         />
       </div>
     </div>
   </section>
 
-  <!-- Section 7: VALUES -->
-  <section class="py-24 relative bg-violet/5">
-    <div class="max-w-[var(--container-max)] mx-auto px-6">
-      <SectionHeading
-        label="What We Stand For"
-        title="Five things we'll <span class='text-gradient'>never compromise</span> on."
-      />
+  <!-- Section 7: VALUES - Sticky Scroll -->
+  <ValuesSection />
 
-      <div class="mt-16 max-w-4xl mx-auto space-y-6">
-        {[
-          { title: "Build, don't advise.", desc: "Strategy without implementation is a PowerPoint. We ship systems that work." },
-          { title: "Open by default.", desc: "Your code, your data, your infrastructure. No vendor lock-in. No hidden dependencies." },
-          { title: "Earn trust, not dependence.", desc: "Our job is done when you don't need us anymore." },
-          { title: "Stay a student.", desc: "The AI landscape changes weekly. We stay curious and share what we learn." },
-          { title: "Measure in impact, not hours.", desc: "We don't bill for effort. We charge for outcomes." }
-        ].map((value, index) => (
-          <GlassCard class="flex flex-col sm:flex-row gap-6 items-start sm:items-center p-6 sm:p-8" hover={false}>
-            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-violet/20 to-rose/20 flex items-center justify-center text-xl font-bold text-violet border border-violet/20">
-              0{index + 1}
-            </div>
-            <div>
-              <h3 class="text-xl font-bold font-heading text-text mb-2">{value.title}</h3>
-              <p class="text-text-secondary">{value.desc}</p>
-            </div>
-          </GlassCard>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Section 8: COMMON QUESTIONS (FAQ) -->
+  <!-- Section 8: COMMON QUESTIONS (FAQ) with JSON-LD -->
   <FAQAccordion 
     faqs={faqData}
     label="Common Questions"
     headline="The Clarity You <span class='text-gradient'>Need.</span>"
   />
 
-  <!-- Section 9: FOUNDER'S NOTE -->
-  <section class="py-24 relative">
-    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-violet/5 to-transparent"></div>
-    <div class="relative z-10 max-w-4xl mx-auto px-6">
-      <SectionHeading
-        label="A Note from the Founder"
-        title="&quot;I built HextonHQ for the <span class='text-gradient'>builder in between.</span>&quot;"
-      />
-
-      <GlassCard class="p-8 sm:p-12 mt-16 relative overflow-hidden" hover={false}>
-        <div class="absolute top-0 right-0 w-64 h-64 bg-violet/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-        
-        <div class="relative z-10 space-y-6 text-text-secondary leading-relaxed text-lg">
-          <p>Giant companies were using AI to move at light speed — automating workflows, personalizing at scale, making decisions faster than any human team could. And small businesses? Founders? Growing teams? They were stuck choosing between tools they couldn't afford and advice they couldn't act on.</p>
-          
-          <p>I built HextonHQ for the builder in between. The person with the ambition of a giant and the budget of a startup. The team that knows AI matters but doesn't have a dedicated AI department.</p>
-
-          <p class="font-medium text-text border-l-4 border-violet pl-6 py-2">We exist to close that gap. To bring the most powerful tools in the world to the people who will do the most extraordinary things with them.</p>
-
-          <div class="pt-8 mt-8 border-t border-border/50 flex items-center gap-4">
-            <div class="w-16 h-16 rounded-full bg-gradient-to-r from-violet to-rose flex items-center justify-center text-white font-bold text-2xl shadow-lg">
-              VR
-            </div>
-            <div>
-              <div class="font-bold font-heading text-text text-xl">Vishnu Raam</div>
-              <div class="text-violet font-medium">Founder</div>
-            </div>
-          </div>
-        </div>
-      </GlassCard>
-    </div>
-  </section>
+  <!-- Section 9: FOUNDER'S NOTE - Editorial Spotlight -->
+  <FounderNote 
+    name="Vishnu Raam"
+    title="Founder, HextonHQ"
+    initials="VR"
+  />
 
   <!-- Section 10: CLOSING CTA -->
   <CTASection
-    title="The divide is real. <span class='text-gradient'>Which side are you building on?</span>"
-    subtitle="Whether you're an organization adopting AI or an individual preparing for what's next — the conversation starts here."
-    cta={{ label: 'Start the Conversation', href: '/contact' }}
+    title="Ready to stop talking about AI, and <span class='text-gradient'>start installing it?</span>"
+    subtitle="Strategy without execution is just a slide deck. Let's build the engine your vision deserves."
+    cta={{ label: 'Initialize the Build', href: '/contact' }}
   />
 </BaseLayout>

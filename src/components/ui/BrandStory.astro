@@ -1,0 +1,163 @@
+---
+/**
+ * Section 3: THE BRAND STORY - "This Has Happened Before"
+ * With animated "light switch" effect - gold glow → violet/rose transition
+ */
+import SectionHeading from './SectionHeading.astro';
+
+interface Props {
+  label?: string;
+}
+
+const { label = "Why We Exist" } = Astro.props;
+---
+
+<section class="brand-story-section py-32 relative overflow-hidden" id="brand-story" data-testid="brand-story-section">
+  <!-- Background glow container for the light switch effect -->
+  <div class="glow-container absolute inset-0 pointer-events-none">
+    <!-- Gold glow (The Past - Electricity) -->
+    <div class="gold-glow absolute inset-0 opacity-100 transition-opacity duration-1000">
+      <div class="absolute w-[800px] h-[600px] rounded-full bg-gradient-to-br from-gold/20 to-transparent blur-[150px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+    </div>
+    <!-- Violet/Rose glow (The Present - AI) -->
+    <div class="violet-glow absolute inset-0 opacity-0 transition-opacity duration-1000">
+      <div class="absolute w-[800px] h-[600px] rounded-full bg-gradient-to-br from-violet/25 via-rose/15 to-transparent blur-[150px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+    </div>
+  </div>
+
+  <!-- Grain texture overlay -->
+  <div class="absolute inset-0 grain opacity-50 pointer-events-none"></div>
+
+  <div class="max-w-3xl mx-auto px-6 relative z-10">
+    <!-- Section Label -->
+    <div class="text-center mb-8">
+      <span class="text-sm font-medium uppercase tracking-wider text-violet">{label}</span>
+    </div>
+
+    <!-- Main Headline -->
+    <h2 class="story-headline text-4xl sm:text-5xl md:text-6xl font-bold font-heading text-center text-white mb-16 leading-tight">
+      This has <span class="text-gradient">happened before.</span>
+    </h2>
+
+    <!-- Story Content - Stanzas -->
+    <div class="story-content space-y-8 text-lg md:text-xl leading-relaxed">
+      <!-- Block 1: The Past (Gold era) -->
+      <div class="story-block story-past transition-all duration-700">
+        <p class="text-text-secondary">
+          When electricity arrived, factories that adopted it didn't just get brighter rooms.
+        </p>
+      </div>
+
+      <div class="story-block story-past transition-all duration-700" style="transition-delay: 100ms">
+        <p class="text-text-secondary">
+          They redesigned <em class="text-white not-italic font-medium">everything</em>. Assembly lines. Shifts. Entire industries, born overnight.
+        </p>
+      </div>
+
+      <div class="story-block story-past transition-all duration-700" style="transition-delay: 200ms">
+        <p class="text-text-secondary">
+          The ones that waited? <span class="text-gold font-medium">They didn't get a second chance.</span>
+        </p>
+      </div>
+
+      <!-- The Pivot Point -->
+      <div class="story-pivot py-8 my-8 transition-all duration-700" style="transition-delay: 300ms">
+        <p class="text-3xl md:text-4xl font-bold font-heading text-center text-gradient">
+          AI is that moment.
+        </p>
+      </div>
+
+      <!-- Block 2: The Present (Violet/Rose era) -->
+      <div class="story-block story-present transition-all duration-700" style="transition-delay: 400ms">
+        <p class="text-text-secondary">
+          Not the chatbot on a website. Not the auto-generated email. The real thing — systems that think, learn, and execute at a speed no human team can match alone.
+        </p>
+      </div>
+
+      <div class="story-block story-present transition-all duration-700" style="transition-delay: 500ms">
+        <p class="text-text-secondary">
+          But here's what nobody talks about: electricity didn't just change factories. It changed <em class="text-white not-italic font-medium">people</em>. Entirely new professions. New businesses. New ways of living.
+        </p>
+      </div>
+
+      <div class="story-block story-present transition-all duration-700" style="transition-delay: 600ms">
+        <p class="text-text-secondary">
+          The ones who learned to work <em class="text-white not-italic">with</em> it built empires. The ones who feared it got left behind.
+        </p>
+      </div>
+
+      <!-- The Resolution -->
+      <div class="story-resolution pt-8 mt-8 border-t border-white/10 transition-all duration-700" style="transition-delay: 700ms">
+        <p class="text-xl md:text-2xl text-white font-medium leading-relaxed text-balance">
+          We started HextonHQ because we believe the size of your team should never limit the size of your ambition. And right now, AI is the greatest equalizer the world has ever seen — <span class="text-gradient">if you know how to use it.</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .story-block.visible,
+  .story-pivot.visible,
+  .story-resolution.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* When lights switch, add subtle text color shift */
+  .brand-story-section.lights-on .story-past .text-gold {
+    transition: color 0.5s ease;
+  }
+</style>
+
+<script>
+  function initBrandStory() {
+    const section = document.querySelector('.brand-story-section');
+    const goldGlow = document.querySelector('.gold-glow');
+    const violetGlow = document.querySelector('.violet-glow');
+    const pivot = document.querySelector('.story-pivot');
+    const blocks = document.querySelectorAll('.story-block, .story-pivot, .story-resolution');
+
+    if (!section || !goldGlow || !violetGlow || !pivot) return;
+
+    // Reveal blocks on scroll
+    const blockObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.3 });
+
+    blocks.forEach(block => blockObserver.observe(block));
+
+    // Light switch effect - trigger when pivot comes into view
+    const pivotObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Switch the lights!
+          (goldGlow as HTMLElement).style.opacity = '0';
+          (violetGlow as HTMLElement).style.opacity = '1';
+          section.classList.add('lights-on');
+        } else {
+          // Scrolling back up - restore gold
+          const rect = entry.boundingClientRect;
+          if (rect.top > 0) {
+            (goldGlow as HTMLElement).style.opacity = '1';
+            (violetGlow as HTMLElement).style.opacity = '0';
+            section.classList.remove('lights-on');
+          }
+        }
+      });
+    }, { threshold: 0.5 });
+
+    pivotObserver.observe(pivot);
+  }
+
+  document.addEventListener('astro:page-load', initBrandStory);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initBrandStory);
+  } else {
+    initBrandStory();
+  }
+</script>

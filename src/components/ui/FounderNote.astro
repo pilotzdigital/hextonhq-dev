@@ -1,0 +1,127 @@
+---
+/**
+ * Section 9: FOUNDER'S NOTE - Editorial Spotlight
+ * Asymmetrical split layout with warm gold ambient lighting
+ */
+
+interface Props {
+  name?: string;
+  title?: string;
+  initials?: string;
+}
+
+const { 
+  name = "Vishnu Raam", 
+  title = "Founder, HextonHQ",
+  initials = "VR"
+} = Astro.props;
+---
+
+<section class="founder-section py-24 lg:py-32 relative overflow-hidden" id="founder" data-testid="founder-section">
+  <!-- Background container with subtle gold lighting -->
+  <div class="absolute inset-0 bg-surface/50">
+    <div class="absolute inset-0 grain opacity-30"></div>
+    <!-- Warm gold ambient glow behind the letter -->
+    <div class="absolute w-[600px] h-[600px] rounded-full bg-gradient-to-br from-gold/10 to-transparent blur-[150px] top-1/2 right-1/4 -translate-y-1/2 opacity-50"></div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-6 relative z-10">
+    <div class="flex flex-col lg:flex-row gap-12 lg:gap-20">
+      
+      <!-- Left Column - Sticky Anchor (30%) -->
+      <div class="lg:w-[30%] lg:sticky lg:top-32 lg:self-start">
+        <div class="relative">
+          <!-- Section label -->
+          <span class="text-sm font-medium uppercase tracking-wider text-gold mb-6 block">A Note from the Founder</span>
+          
+          <!-- Giant quotation mark -->
+          <div class="absolute -top-8 -left-4 lg:-left-8 opacity-10">
+            <span class="text-[150px] lg:text-[200px] font-heading font-bold text-gold leading-none select-none">"</span>
+          </div>
+          
+          <!-- Founder info card -->
+          <div class="mt-20 lg:mt-32">
+            <div class="flex items-center gap-4">
+              <div class="w-16 h-16 rounded-full bg-gradient-to-br from-gold/30 to-gold/10 flex items-center justify-center text-gold font-bold text-xl border border-gold/30 shadow-lg shadow-gold/10">
+                {initials}
+              </div>
+              <div>
+                <div class="font-bold font-heading text-white text-lg">{name}</div>
+                <div class="text-gold/80 text-sm">{title}</div>
+              </div>
+            </div>
+            
+            <!-- Gold accent line -->
+            <div class="mt-6 w-24 h-px bg-gradient-to-r from-gold/50 to-transparent"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column - The Letter (70%) -->
+      <div class="lg:w-[70%]">
+        <div class="glass rounded-3xl p-8 lg:p-12 relative overflow-hidden">
+          <!-- Subtle gold glow inside card -->
+          <div class="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-gold/5 to-transparent rounded-full blur-3xl pointer-events-none"></div>
+          
+          <div class="relative z-10 space-y-8">
+            <!-- Pull quote -->
+            <blockquote class="text-2xl lg:text-3xl font-bold font-heading text-white leading-tight">
+              "I built HextonHQ for the <span class="text-gold">builder in between.</span>"
+            </blockquote>
+
+            <!-- Letter body -->
+            <div class="space-y-6 text-text-secondary text-lg leading-relaxed">
+              <p>
+                Giant companies were using AI to move at light speed—automating workflows, personalizing at scale, making decisions faster than any human team could.
+              </p>
+              
+              <p>
+                And small businesses? Founders? Growing teams? They were stuck choosing between tools they couldn't afford and advice they couldn't act on.
+              </p>
+              
+              <p>
+                I built HextonHQ for the builder in between. The person with the ambition of a giant and the budget of a startup. The team that knows AI matters but doesn't have a dedicated AI department.
+              </p>
+              
+              <!-- Highlighted statement -->
+              <div class="border-l-4 border-gold pl-6 py-2 my-8">
+                <p class="text-white font-medium text-xl">
+                  We exist to close that gap. To bring the most powerful tools in the world to the people who will do the most extraordinary things with them.
+                </p>
+              </div>
+            </div>
+
+            <!-- Signature area -->
+            <div class="pt-8 mt-8 border-t border-white/10 flex items-center justify-between">
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full bg-gradient-to-r from-violet to-rose flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                  {initials}
+                </div>
+                <div>
+                  <div class="font-bold font-heading text-white">{name}</div>
+                  <div class="text-violet text-sm">Founder</div>
+                </div>
+              </div>
+              
+              <!-- Decorative signature line -->
+              <div class="hidden sm:block">
+                <svg class="w-32 h-8 text-gold/30" viewBox="0 0 120 30" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M5 20 Q 15 5, 30 15 T 55 12 T 80 18 T 105 10 T 115 15" stroke-linecap="round"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @media (max-width: 1023px) {
+    .founder-section .lg\:sticky {
+      position: relative;
+      top: 0;
+    }
+  }
+</style>

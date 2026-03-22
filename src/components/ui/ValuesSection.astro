@@ -1,0 +1,155 @@
+---
+/**
+ * Section 7: VALUES - Sticky Scroll Terminal Readout
+ * Split-screen with sticky left column and scrolling values on right
+ */
+
+interface Value {
+  title: string;
+  description: string;
+}
+
+interface Props {
+  values?: Value[];
+}
+
+const { values = [
+  {
+    title: "Build, don't advise.",
+    description: "Strategy without execution is just a slide deck. If we can't build it, we don't sell it."
+  },
+  {
+    title: "Open by default.",
+    description: "Enterprise-grade doesn't mean vendor lock-in. You own the code, the servers, and the data. Always."
+  },
+  {
+    title: "Earn trust, not dependence.",
+    description: "We design systems so you become more capable, not more reliant on us. Our goal is to make ourselves obsolete."
+  },
+  {
+    title: "Stay a student.",
+    description: "The technology changes weekly. The moment we stop learning is the moment we stop being useful to you."
+  },
+  {
+    title: "Measure in impact, not hours.",
+    description: "We don't sell timesheets. We sell outcomes. The only question that matters is: what changed because we were here?"
+  }
+]} = Astro.props;
+---
+
+<section class="values-section relative bg-surface/20" id="values" data-testid="values-section">
+  <div class="max-w-7xl mx-auto">
+    <div class="values-container flex flex-col lg:flex-row min-h-screen">
+      
+      <!-- Left Side - Sticky -->
+      <div class="values-left lg:w-2/5 lg:sticky lg:top-0 lg:h-screen flex items-center justify-center p-8 lg:p-16">
+        <div class="text-center lg:text-left">
+          <!-- Section label -->
+          <span class="text-sm font-medium uppercase tracking-wider text-violet mb-4 block">What We Stand For</span>
+          
+          <!-- Large accent element -->
+          <div class="relative mb-8">
+            <span class="text-[120px] md:text-[180px] font-heading font-bold text-gold/10 absolute -top-16 -left-4 select-none leading-none">"</span>
+          </div>
+          
+          <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold font-heading text-white leading-tight mb-6">
+            The System <span class="text-gradient">Rules.</span>
+          </h2>
+          
+          <p class="text-text-secondary text-lg max-w-md">
+            Five principles that govern everything we build.
+          </p>
+        </div>
+      </div>
+
+      <!-- Right Side - Scrolling Values -->
+      <div class="values-right lg:w-3/5 py-16 lg:py-32 px-6 lg:px-16">
+        <div class="space-y-8 lg:space-y-16">
+          {values.map((value, index) => (
+            <div 
+              class="value-block glass rounded-3xl p-8 lg:p-12 relative overflow-hidden group transition-all duration-500 hover:scale-[1.02]"
+              data-testid={`value-${index}`}
+            >
+              <!-- Glow effect on hover -->
+              <div class="absolute inset-0 bg-gradient-to-br from-violet/5 to-rose/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              
+              <!-- Number indicator -->
+              <div class="absolute top-6 right-6 w-10 h-10 rounded-full bg-gradient-to-br from-violet/20 to-rose/10 flex items-center justify-center text-sm font-bold text-violet border border-violet/20">
+                0{index + 1}
+              </div>
+              
+              <div class="relative z-10">
+                <!-- Value Title - Manifesto style -->
+                <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold font-heading text-white mb-4 leading-tight pr-12">
+                  {value.title}
+                </h3>
+                
+                <!-- Value Description -->
+                <p class="text-text-secondary text-lg leading-relaxed max-w-2xl">
+                  {value.description}
+                </p>
+              </div>
+              
+              <!-- Bottom gradient line -->
+              <div class="absolute bottom-0 left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-violet/30 to-transparent"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .value-block {
+    opacity: 0;
+    transform: translateX(30px);
+    animation: revealValue 0.8s ease-out forwards;
+    animation-play-state: paused;
+  }
+
+  .value-block.visible {
+    animation-play-state: running;
+  }
+
+  @keyframes revealValue {
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  /* Sticky behavior only on large screens */
+  @media (max-width: 1023px) {
+    .values-left {
+      position: relative;
+      height: auto;
+    }
+  }
+</style>
+
+<script>
+  function initValues() {
+    const blocks = document.querySelectorAll('.value-block');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.2 });
+
+    blocks.forEach((block, index) => {
+      (block as HTMLElement).style.animationDelay = `${index * 150}ms`;
+      observer.observe(block);
+    });
+  }
+
+  document.addEventListener('astro:page-load', initValues);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initValues);
+  } else {
+    initValues();
+  }
+</script>
