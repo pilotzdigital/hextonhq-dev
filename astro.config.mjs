@@ -16,6 +16,9 @@ export default defineConfig({
 
   vite: {
     plugins: [tailwindcss()],
+    server: {
+      allowedHosts: ['.emergentagent.com', '.emergentcf.cloud', '.preview.emergentagent.com'],
+    },
   },
 
   image: {
