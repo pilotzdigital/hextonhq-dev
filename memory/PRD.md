@@ -1,21 +1,24 @@
 # HextonHQ Website - PRD
 
 ## Original Problem Statement
-Import and upgrade an Astro 5 + Tailwind CSS v4 project (HextonHQ website) focusing on Section 4 "Our Architecture" to create a highly interactive, glassmorphic cards slider with:
-- 8 service cards with hooks, titles, and descriptions
-- Glassmorphic design - frosted glass effect
-- 3D depth effect - center card prominent, side cards visible but "behind"
-- Navigation via swipe, arrows, and autoplay
-- Parallax/animations to capture attention
+Complete V3 upgrade of HextonHQ website (Astro 5 + Tailwind CSS v4) based on the Astro_Development_Handoff_v3.md document. Key requirements:
+- Section 2: 6 case study cards with metrics
+- Section 3: Brand Story with "light switch" effect (gold → violet/rose transition)
+- Section 4: 8-card glassmorphic carousel with swipe/arrows/autoplay
+- Section 5: Dual-row infinite marquee with 100+ tools
+- Section 7: Sticky scroll values section
+- Section 8: FAQ accordion with JSON-LD AEO schema
+- Section 9: Asymmetric founder note with gold accents
+- All sections: Glassmorphic design, parallax effects, animations
 
 ## Architecture
 - **Framework**: Astro 5 (Island Architecture for fast loads)
 - **Styling**: Tailwind CSS v4 (native CSS features, @container queries)
 - **Build Output**: Static site generation
 - **Design System**: GenAI × Plasma hybrid aesthetic
-  - Colors: Deep dark backgrounds (#050510), violet-to-rose gradients (#A855F7 → #FB7185)
+  - Primary Colors: Deep dark (#050510), violet (#A855F7), rose (#FB7185), gold (#FFB800)
   - Typography: Space Grotesk (headlines), Inter (body)
-  - Effects: Glassmorphism, grain texture, parallax orbs
+  - Effects: Glassmorphism, grain texture, parallax orbs, infinite marquees
 
 ## User Personas
 1. **CTOs/Technical Founders** - Looking for AI architecture solutions
@@ -23,50 +26,56 @@ Import and upgrade an Astro 5 + Tailwind CSS v4 project (HextonHQ website) focus
 3. **Small Business Owners** - Wanting enterprise-grade tools without lock-in
 4. **Individual Builders** - Learning AI-native workflows
 
-## Core Requirements (Static)
-- [x] Dark mode glassmorphic design
-- [x] Interactive 8-card service carousel
-- [x] 3D perspective depth effect
-- [x] Multiple navigation methods (arrows, dots, swipe, autoplay)
-- [x] Parallax background animations
-- [x] Mobile responsive
-- [x] Brand-aligned typography and colors
+## What's Been Implemented (V3 Complete)
 
-## What's Been Implemented
+### January 2026 - Full V3 Upgrade
 
-### January 2026 - V3 Complete Upgrade
-- **Section 2: Interactive Showcase** - Complete
-  - `InteractiveShowcase.astro` component with:
-    - 3 glassmorphic metric cards (4 Hours → 2 Seconds, +125% Conversion, Zero Lock-in)
-    - Gradient text animation for metrics
-    - Scroll-triggered reveal animations
-    - Background glow effects
-    - Interactive hover states with card-glow
+**Section 2: Interactive Showcase** ✅
+- `InteractiveShowcase.astro` with 6 glassmorphic case study cards
+- Metrics: "4 Hours → 2 Seconds", "$24,000/yr → $600/yr", "#1 Cited Source", etc.
+- Scroll-triggered reveal animations
 
-- **Section 4: Capabilities Carousel** - Complete
-  - `CapabilitiesCarousel.astro` component with:
-    - 8 glassmorphic service cards with 3D depth effect
-    - Arrow navigation, pagination dots, progress bar
-    - 4-second autoplay (pauses on hover)
-    - Touch/swipe/keyboard navigation
-    - Parallax background orbs
+**Section 3: Brand Story** ✅
+- `BrandStory.astro` with "light switch" effect
+- Gold glow transitions to violet/rose when "AI is that moment" comes into view
+- Gold accent text highlighting key moments
 
-- **Section 5: Tech Stack Matrix** - Complete
-  - `TechStackMatrix.astro` component with:
-    - 4 category columns (Automation, AI/LLMs, Data/Hosting, Frontend)
-    - 14 tools listed with glowing dot indicators
-    - Category icons and hover effects
-    - Scroll-triggered animations
+**Section 4: Capabilities Carousel** ✅
+- `CapabilitiesCarousel.astro` with 8 service cards
+- 3D perspective depth effect
+- Navigation: arrows, pagination dots, autoplay, swipe/drag, keyboard
+- Parallax background orbs
 
-- **Section 8: FAQ Accordion** - Complete
-  - `FAQAccordion.astro` component with:
-    - 3 FAQs with expand/collapse accordion behavior
-    - AEO-optimized JSON-LD FAQPage schema injection
-    - Smooth slide-down animations
-    - "Let's Talk" CTA button
+**Section 5: Tech Stack Marquee** ✅
+- `TechStackMatrix.astro` with dual-row infinite scroll
+- 180+ tools across AI/Automation and Infrastructure categories
+- Pause on hover, viewport-aware animation
 
-- Updated `ServiceCard.astro` with SVG icon support
-- Fixed Vite allowedHosts for preview deployment
+**Section 7: Values Section** ✅
+- `ValuesSection.astro` with sticky scroll pattern
+- Left column stays fixed while right column scrolls through 5 values
+- "The System Rules" headline with gold accent
+
+**Section 8: FAQ Accordion** ✅
+- `FAQAccordion.astro` with 3 expandable questions
+- AEO-optimized JSON-LD FAQPage schema injection
+- Smooth accordion animations
+
+**Section 9: Founder Note** ✅
+- `FounderNote.astro` with asymmetric editorial layout
+- Gold ambient lighting and accent elements
+- Pull quote: "I built HextonHQ for the builder in between"
+
+**Section 10: CTA** ✅
+- Updated copy: "Ready to stop talking about AI, and start installing it?"
+- "Initialize the Build" CTA button
+
+## Testing Status
+- Frontend Testing: 100% pass rate (24/24 features)
+- All interactive animations working
+- JSON-LD schema verified
+- Glassmorphic styling on 210+ elements
+- Responsive design verified
 
 ## Backlog
 
@@ -74,23 +83,17 @@ Import and upgrade an Astro 5 + Tailwind CSS v4 project (HextonHQ website) focus
 - None remaining
 
 ### P1 (High Priority)
-- Light/dark mode toggle enhancement
-- Mobile responsiveness polish
-- Performance optimization (image lazy loading)
+- Contact form functionality
+- Services page detail layouts
+- Blog post functionality
 
 ### P2 (Medium Priority)
-- Card click-to-expand details view
-- Service page deep links from carousel cards
-- Add more FAQ questions
+- Light/dark mode toggle enhancement
+- Performance optimization (image lazy loading)
+- Additional FAQ questions
 
 ## Next Tasks
-1. Polish mobile responsive layouts
-2. Add loading states and skeleton screens
-3. Implement contact form functionality
-4. Add blog post functionality
-
-## Testing Status
-- Frontend Testing: 95% pass rate (13/14 features)
-- All V3 sections verified working
-- JSON-LD schema correctly injected
-- Glassmorphic styling applied across 31+ elements
+1. Build out /services page with individual service details
+2. Implement /contact page with form submission
+3. Create /blog listing and post templates
+4. Add loading states and skeleton screens
