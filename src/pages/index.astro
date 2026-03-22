@@ -5,6 +5,51 @@ import SectionHeading from '../components/ui/SectionHeading.astro';
 import ServiceCard from '../components/ui/ServiceCard.astro';
 import GlassCard from '../components/ui/GlassCard.astro';
 import CTASection from '../components/ui/CTASection.astro';
+import CapabilitiesCarousel from '../components/ui/CapabilitiesCarousel.astro';
+
+// Capabilities cards data for Section 4
+const capabilitiesCards = [
+  {
+    hook: "You are paying brilliant people to do robot work. Let's fix that.",
+    title: "AI & Workflow Automation",
+    description: "We deploy autonomous agent systems that handle your lead generation, enrichment, and outreach behind the scenes. Your team does the closing; the system does the rest."
+  },
+  {
+    hook: "Great products don't sell themselves. Systems do.",
+    title: "Fractional CMO & Marketing Ops",
+    description: "We don't just hand you a strategy deck. We step in to audit your stack, install the growth engines, and run your marketing operations like a high-precision machine."
+  },
+  {
+    hook: "When AI answers the user's question, where does your website go?",
+    title: "Generative Engine Optimization (GEO)",
+    description: "Traditional search is fading. We optimize your brand to be cited by the AI engines—like Perplexity and Google's AI Overviews—that your future customers are already using."
+  },
+  {
+    hook: "Buying the software is the easy part. Getting your team to use it is where we come in.",
+    title: "AI Enablement & Consulting",
+    description: "We run hands-on, intensive sprints to turn your staff from hesitant users into AI-native builders who actually own and understand their new workflows."
+  },
+  {
+    hook: "How much of your week is spent moving information from one tab to another?",
+    title: "Internal Process Automation",
+    description: "We eliminate the operational bottlenecks in HR, finance, and internal ops by installing invisible automations that run exactly the way your business does."
+  },
+  {
+    hook: "Stop paying monthly rent for software you don't even own.",
+    title: "Custom CRM & Client Portals",
+    description: "We build proprietary infrastructure—tailored to your exact workflow—on enterprise-grade open-source tools. You own the code, the data, and the servers. Zero seat licenses."
+  },
+  {
+    hook: "You have dashboards. You just don't have answers.",
+    title: "Data Infrastructure & Analytics",
+    description: "We deploy secure, self-hosted data stacks that connect the dots between your marketing spend and your actual revenue, giving you total privacy and absolute clarity."
+  },
+  {
+    hook: "Your five-person team can out-execute a fifty-person agency.",
+    title: "Specialized Team Upskilling",
+    description: "We deliver deep, technical upskilling for your ambitious marketing and sales units. We teach them the exact frameworks to deploy, prompt, and manage AI systems that scale your output tenfold."
+  }
+];
 ---
 
 <BaseLayout
@@ -15,9 +60,9 @@ import CTASection from '../components/ui/CTASection.astro';
   <Hero
     label="The AI Adoption Company"
     title='Extraordinary things happen when <span class="text-gradient">extraordinary technology</span> reaches ordinary people.'
-    subtitle="The world's most powerful tools shouldn't be locked behind Fortune 500 budgets."
-    primaryCTA={{ label: 'See What We Believe', href: '#brand-story' }}
-    secondaryCTA={{ label: 'The Numbers', href: '#data' }}
+    subtitle="The world's most powerful tools shouldn't be locked behind Fortune 500 budgets. We build open-source AI architecture that scales your growth, automates your operations, and trains your team to own it."
+    primaryCTA={{ label: 'Build Your Architecture', href: '/contact' }}
+    secondaryCTA={{ label: 'See Our Beliefs', href: '#brand-story' }}
   />
 
   <!-- Section 2: THE BRAND STORY — "This Has Happened Before" -->
@@ -80,7 +125,14 @@ import CTASection from '../components/ui/CTASection.astro';
     </div>
   </section>
 
-  <!-- Section 4: FOR INDIVIDUALS -->
+  <!-- Section 4: OUR CAPABILITIES (The Offerings) - Interactive Glassmorphic Carousel -->
+  <CapabilitiesCarousel 
+    cards={capabilitiesCards}
+    label="Our Architecture"
+    headline="We don't sell advice. We <span class='text-gradient'>install systems.</span>"
+  />
+
+  <!-- Section 5: FOR INDIVIDUALS -->
   <section class="py-24 relative">
     <div class="max-w-[var(--container-max)] mx-auto px-6">
       <SectionHeading
@@ -107,7 +159,7 @@ import CTASection from '../components/ui/CTASection.astro';
     </div>
   </section>
 
-  <!-- Section 5: IDENTITY - Adopt. Scale. Prepare. -->
+  <!-- Section 6: IDENTITY - Adopt. Scale. Prepare. -->
   <section class="py-24 relative bg-violet/5">
     <div class="max-w-[var(--container-max)] mx-auto px-6">
       <SectionHeading
@@ -117,17 +169,17 @@ import CTASection from '../components/ui/CTASection.astro';
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
         <ServiceCard
-          icon="⚡"
+          icon="bolt"
           title="Adopt."
           description="We don't sell AI. We install it into your workflows, your operations, your culture. Not advice. Not decks. Working systems you own."
         />
         <ServiceCard
-          icon="📈"
+          icon="chart"
           title="Scale."
           description="From go-to-market strategy to marketing architecture — we build the engine that grows with you. Open-source, no lock-in, designed for compound returns."
         />
         <ServiceCard
-          icon="🛡️"
+          icon="shield"
           title="Prepare."
           description="The AI economy rewards builders, not bystanders. We train individuals and teams to operate in an AI-native world — before the market decides for them."
         />
@@ -135,7 +187,7 @@ import CTASection from '../components/ui/CTASection.astro';
     </div>
   </section>
 
-  <!-- Section 6: VALUES -->
+  <!-- Section 7: VALUES -->
   <section class="py-24 relative">
     <div class="max-w-[var(--container-max)] mx-auto px-6">
       <SectionHeading
@@ -165,7 +217,7 @@ import CTASection from '../components/ui/CTASection.astro';
     </div>
   </section>
 
-  <!-- Section 7: FOUNDER'S NOTE -->
+  <!-- Section 8: FOUNDER'S NOTE -->
   <section class="py-24 relative">
     <div class="absolute inset-0 bg-gradient-to-b from-transparent via-violet/5 to-transparent"></div>
     <div class="relative z-10 max-w-4xl mx-auto px-6">
@@ -198,7 +250,7 @@ import CTASection from '../components/ui/CTASection.astro';
     </div>
   </section>
 
-  <!-- Section 8: CLOSING CTA -->
+  <!-- Section 9: CLOSING CTA -->
   <CTASection
     title="The divide is real. <span class='text-gradient'>Which side are you building on?</span>"
     subtitle="Whether you're an organization adopting AI or an individual preparing for what's next — the conversation starts here."
