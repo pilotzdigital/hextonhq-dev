@@ -1,33 +1,185 @@
 ---
-import GlassCard from './GlassCard.astro';
+/**
+ * Section 5: THE INFRASTRUCTURE - Tech Stack Matrix
+ * Glassmorphic grid showing open-source and enterprise tools
+ */
 import SectionHeading from './SectionHeading.astro';
 
-interface Props {
-  tools: {
-    name: string;
-    category: string;
-  }[];
+interface TechCategory {
+  category: string;
+  tools: string[];
+  icon?: string;
 }
 
-const { tools } = Astro.props;
+interface Props {
+  categories: TechCategory[];
+  headline?: string;
+}
+
+const { 
+  categories,
+  headline = "Open by default. Scalable by design."
+} = Astro.props;
+
+// Category icons
+const categoryIcons: Record<string, string> = {
+  'Automation': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-5 h-5"><path d="M4.5 12a7.5 7.5 0 0015 0m-15 0a7.5 7.5 0 1115 0m-15 0H3m16.5 0H21m-1.5 0H12m-8.457 3.077l1.41-.513m14.095-5.13l1.41-.513M5.106 17.785l1.15-.964m11.49-9.642l1.149-.964M7.501 19.795l.75-1.3m7.5-12.99l.75-1.3m-6.063 16.658l.26-1.477m2.605-14.772l.26-1.477m0 17.726l-.26-1.477M10.698 4.614l-.26-1.477M16.5 19.794l-.75-1.299M7.5 4.205L6.75 2.906m12.645 14.028l-1.149-.964M5.106 6.215l1.15.964m14.093 5.128l-1.41-.513M5.553 8.436l1.41.513"/></svg>`,
+  'AI/LLMs': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-5 h-5"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"/></svg>`,
+  'Data/Hosting': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-5 h-5"><path d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"/></svg>`,
+  'Frontend': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-5 h-5"><path d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"/></svg>`,
+};
+
+// Tool brand colors (subtle)
+const toolColors: Record<string, string> = {
+  'n8n': 'from-orange-500/20',
+  'Make': 'from-violet-500/20',
+  'Zapier': 'from-orange-400/20',
+  'OpenAI': 'from-emerald-500/20',
+  'Anthropic': 'from-amber-500/20',
+  'LangChain': 'from-green-500/20',
+  'Vercel AI SDK': 'from-white/20',
+  'Supabase': 'from-emerald-400/20',
+  'Dokploy': 'from-blue-500/20',
+  'Postgres': 'from-blue-400/20',
+  'Matomo': 'from-blue-600/20',
+  'Astro': 'from-orange-500/20',
+  'Next.js': 'from-white/20',
+  'Payload CMS': 'from-indigo-500/20',
+};
 ---
 
-<section class="py-16">
-  <SectionHeading 
-    title="The Infrastructure" 
-    subtitle="We don't build proprietary black boxes. We deploy the world's best open-source and enterprise tools into your environment."
-    align="left"
-  />
+<section class="tech-stack-section py-24 relative overflow-hidden bg-violet/5" id="infrastructure" data-testid="tech-stack-section">
+  <!-- Background grid pattern -->
+  <div class="absolute inset-0 dot-grid opacity-30"></div>
+  
+  <!-- Floating orbs -->
+  <div class="absolute inset-0 pointer-events-none overflow-hidden">
+    <div class="absolute w-[400px] h-[400px] rounded-full bg-gradient-to-br from-violet/10 to-transparent blur-[100px] top-20 -left-32 animate-float-slow"></div>
+    <div class="absolute w-[300px] h-[300px] rounded-full bg-gradient-to-tl from-rose/10 to-transparent blur-[80px] bottom-20 -right-20 animate-float-slow-reverse"></div>
+  </div>
 
-  <div class="flex flex-wrap gap-4 mt-8">
-    {tools.map((tool) => (
-      <GlassCard class="!p-4 flex items-center gap-3 cursor-default" hover={true}>
-        <div class="h-2 w-2 rounded-full bg-violet-500 shadow-[0_0_8px_rgba(168,85,247,0.8)]"></div>
-        <div>
-          <p class="font-bold text-slate-200 text-sm">{tool.name}</p>
-          <p class="text-xs text-slate-500 uppercase tracking-wider">{tool.category}</p>
+  <div class="max-w-7xl mx-auto px-6 relative z-10">
+    <SectionHeading 
+      label="The Infrastructure"
+      title={headline}
+      subtitle="We build on the world's best open-source and enterprise frameworks."
+      align="center"
+    />
+
+    <!-- Tech Stack Grid -->
+    <div class="tech-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-16" data-testid="tech-grid">
+      {categories.map((category, catIndex) => (
+        <div 
+          class="tech-category group"
+          data-testid={`tech-category-${catIndex}`}
+          style={`animation-delay: ${catIndex * 100}ms`}
+        >
+          <div class="glass rounded-3xl p-6 h-full relative overflow-hidden border border-white/5 hover:border-violet/30 transition-all duration-500">
+            <!-- Category glow on hover -->
+            <div class="absolute inset-0 bg-gradient-to-br from-violet/5 to-rose/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            
+            <div class="relative z-10">
+              <!-- Category Header -->
+              <div class="flex items-center gap-3 mb-6 pb-4 border-b border-white/10">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-violet/20 to-rose/10 flex items-center justify-center text-violet border border-violet/20" set:html={categoryIcons[category.category] || categoryIcons['Automation']} />
+                <h3 class="text-lg font-bold font-heading text-white">{category.category}</h3>
+              </div>
+              
+              <!-- Tools List -->
+              <div class="space-y-3">
+                {category.tools.map((tool, toolIndex) => (
+                  <div 
+                    class="tool-item flex items-center gap-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-all duration-300 group/tool cursor-default"
+                    style={`animation-delay: ${(catIndex * 100) + (toolIndex * 50)}ms`}
+                  >
+                    <!-- Glowing dot indicator -->
+                    <div class={`w-2 h-2 rounded-full bg-gradient-to-r ${toolColors[tool] || 'from-violet/40'} to-rose/40 shadow-[0_0_8px_rgba(168,85,247,0.6)] group-hover/tool:shadow-[0_0_12px_rgba(168,85,247,0.8)] transition-shadow`}></div>
+                    <span class="text-text-secondary group-hover/tool:text-white transition-colors font-medium">{tool}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
-      </GlassCard>
-    ))}
+      ))}
+    </div>
+
+    <!-- Bottom tagline -->
+    <p class="text-center text-text-secondary mt-12 text-lg max-w-2xl mx-auto">
+      Your code, your data, your infrastructure. <span class="text-violet font-medium">No vendor lock-in.</span>
+    </p>
   </div>
 </section>
+
+<style>
+  .tech-category {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: revealCategory 0.6s ease-out forwards;
+  }
+
+  @keyframes revealCategory {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .tool-item {
+    opacity: 0;
+    transform: translateX(-10px);
+    animation: revealTool 0.4s ease-out forwards;
+  }
+
+  @keyframes revealTool {
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .animate-float-slow {
+    animation: floatSlow 20s ease-in-out infinite;
+  }
+
+  .animate-float-slow-reverse {
+    animation: floatSlow 25s ease-in-out infinite reverse;
+  }
+
+  @keyframes floatSlow {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(30px, -20px); }
+  }
+</style>
+
+<script>
+  function initTechStack() {
+    const categories = document.querySelectorAll('.tech-category');
+    const tools = document.querySelectorAll('.tool-item');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = 'running';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    categories.forEach(cat => {
+      (cat as HTMLElement).style.animationPlayState = 'paused';
+      observer.observe(cat);
+    });
+
+    tools.forEach(tool => {
+      (tool as HTMLElement).style.animationPlayState = 'paused';
+      observer.observe(tool);
+    });
+  }
+
+  document.addEventListener('astro:page-load', initTechStack);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTechStack);
+  } else {
+    initTechStack();
+  }
+</script>

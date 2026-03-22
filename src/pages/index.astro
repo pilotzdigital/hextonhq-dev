@@ -6,8 +6,27 @@ import ServiceCard from '../components/ui/ServiceCard.astro';
 import GlassCard from '../components/ui/GlassCard.astro';
 import CTASection from '../components/ui/CTASection.astro';
 import CapabilitiesCarousel from '../components/ui/CapabilitiesCarousel.astro';
+import InteractiveShowcase from '../components/ui/InteractiveShowcase.astro';
+import TechStackMatrix from '../components/ui/TechStackMatrix.astro';
+import FAQAccordion from '../components/ui/FAQAccordion.astro';
 
-// Capabilities cards data for Section 4
+// Section 2: Interactive Showcase - Social Proof Cards
+const showcaseCards = [
+  {
+    metric: "4 Hours → 2 Seconds",
+    description: "Automated CRM Lead Enrichment via n8n."
+  },
+  {
+    metric: "+125% Conversion",
+    description: "Full-Funnel Growth Hacking & CRO."
+  },
+  {
+    metric: "Zero Lock-in",
+    description: "Open-Source Marketing Stack Deployment."
+  }
+];
+
+// Section 4: Capabilities cards data
 const capabilitiesCards = [
   {
     hook: "You are paying brilliant people to do robot work. Let's fix that.",
@@ -50,6 +69,42 @@ const capabilitiesCards = [
     description: "We deliver deep, technical upskilling for your ambitious marketing and sales units. We teach them the exact frameworks to deploy, prompt, and manage AI systems that scale your output tenfold."
   }
 ];
+
+// Section 5: Tech Stack Matrix
+const techCategories = [
+  {
+    category: "Automation",
+    tools: ["n8n", "Make", "Zapier"]
+  },
+  {
+    category: "AI/LLMs",
+    tools: ["OpenAI", "Anthropic", "LangChain", "Vercel AI SDK"]
+  },
+  {
+    category: "Data/Hosting",
+    tools: ["Supabase", "Dokploy", "Postgres", "Matomo"]
+  },
+  {
+    category: "Frontend",
+    tools: ["Astro", "Next.js", "Payload CMS"]
+  }
+];
+
+// Section 8: FAQ Data
+const faqData = [
+  {
+    question: "Do you charge an upfront fee or a monthly retainer?",
+    answer: "We offer both. For custom AI architecture (like a conversational agent or proprietary CRM), we charge a flat build fee. For Fractional CMO and continuous Growth Hacking, we operate on a fixed monthly retainer."
+  },
+  {
+    question: "What do you mean by \"Open-Source Infrastructure\"?",
+    answer: "Most agencies build your systems on expensive platforms like HubSpot or Salesforce, meaning you are locked in forever. We build on enterprise-grade open-source tools hosted on your own servers. You own the code and the data."
+  },
+  {
+    question: "How does the Team Enablement work?",
+    answer: "It's not a generic PowerPoint. We come in (remotely or in-person) and run agile sprints, training your marketing and sales staff exactly how to use the custom automation workflows we just built for you."
+  }
+];
 ---
 
 <BaseLayout
@@ -65,7 +120,14 @@ const capabilitiesCards = [
     secondaryCTA={{ label: 'See Our Beliefs', href: '#brand-story' }}
   />
 
-  <!-- Section 2: THE BRAND STORY — "This Has Happened Before" -->
+  <!-- Section 2: THE INTERACTIVE SHOWCASE (Social Proof) -->
+  <InteractiveShowcase 
+    cards={showcaseCards}
+    label="Our Output"
+    headline="Not theory. <span class='text-gradient'>Architecture.</span>"
+  />
+
+  <!-- Section 3: THE BRAND STORY — "This Has Happened Before" -->
   <section class="py-24 relative" id="brand-story">
     <div class="max-w-[var(--container-max)] mx-auto px-6">
       <SectionHeading
@@ -93,38 +155,6 @@ const capabilitiesCards = [
     </div>
   </section>
 
-  <!-- Section 3: FOR ORGANIZATIONS -->
-  <section class="py-24 relative bg-violet/5" id="data">
-    <div class="max-w-[var(--container-max)] mx-auto px-6">
-      <SectionHeading
-        label="For Organizations"
-        title="AI adoption isn't a feature. It's a <span class='text-gradient'>redesign</span> of how your business operates."
-      />
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 max-w-5xl mx-auto">
-        <GlassCard class="text-center">
-          <div class="text-5xl font-bold font-heading text-gradient mb-2">88%</div>
-          <p class="text-text font-medium mb-4">of organizations use AI in at least one function</p>
-          <p class="text-sm text-text-secondary italic">McKinsey, 2025</p>
-        </GlassCard>
-        <GlassCard class="text-center">
-          <div class="text-5xl font-bold font-heading text-gradient mb-2">Only 7%</div>
-          <p class="text-text font-medium mb-4">have fully deployed it across their organization</p>
-          <p class="text-sm text-text-secondary italic">DesignRush, 2025</p>
-        </GlassCard>
-        <GlassCard class="text-center">
-          <div class="text-5xl font-bold font-heading text-gradient mb-2">74%</div>
-          <p class="text-text font-medium mb-4">of executives saw ROI within 12 months</p>
-          <p class="text-sm text-text-secondary italic">Google Cloud, 2025</p>
-        </GlassCard>
-      </div>
-
-      <div class="max-w-4xl mx-auto mt-12 text-center text-lg text-text-secondary leading-relaxed">
-        <p>Most companies already know they need AI. What they don't have is the architecture — the systems, the workflows, the strategy that makes it actually work. Not a plugin. Not a chatbot. A complete redesign of how work moves through your organization. We build that. End-to-end marketing architecture, go-to-market systems, and AI workflows — designed to scale with you, built on open-source, and owned entirely by you.</p>
-      </div>
-    </div>
-  </section>
-
   <!-- Section 4: OUR CAPABILITIES (The Offerings) - Interactive Glassmorphic Carousel -->
   <CapabilitiesCarousel 
     cards={capabilitiesCards}
@@ -132,35 +162,14 @@ const capabilitiesCards = [
     headline="We don't sell advice. We <span class='text-gradient'>install systems.</span>"
   />
 
-  <!-- Section 5: FOR INDIVIDUALS -->
-  <section class="py-24 relative">
-    <div class="max-w-[var(--container-max)] mx-auto px-6">
-      <SectionHeading
-        label="For Individuals"
-        title="170 million new jobs will be created by 2030. <span class='text-gradient'>92 million will disappear.</span>"
-      />
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16 max-w-4xl mx-auto">
-        <GlassCard class="text-center p-10">
-          <div class="text-6xl font-bold font-heading text-gradient mb-4">39%</div>
-          <p class="text-text text-lg font-medium mb-6">of workers' core skills will change by 2030</p>
-          <p class="text-sm text-text-secondary italic">World Economic Forum</p>
-        </GlassCard>
-        <GlassCard class="text-center p-10">
-          <div class="text-6xl font-bold font-heading text-gradient mb-4">68%</div>
-          <p class="text-text text-lg font-medium mb-6">of small business owners already use AI</p>
-          <p class="text-sm text-text-secondary italic">Goldman Sachs, 2025</p>
-        </GlassCard>
-      </div>
-
-      <div class="max-w-3xl mx-auto mt-12 text-center text-lg text-text-secondary leading-relaxed">
-        <p>Every technological revolution creates two kinds of people: those who learn the new tools, and those who get replaced by them. We believe there's a third kind — those who build with them. HextonHQ gives individuals the training, the tools, and the support to build something of their own. Not because the future is scary. Because the future is <em>available</em> — and most people don't know it yet.</p>
-      </div>
-    </div>
-  </section>
+  <!-- Section 5: THE INFRASTRUCTURE (Tech Stack Matrix) -->
+  <TechStackMatrix 
+    categories={techCategories}
+    headline="Open by default. <span class='text-gradient'>Scalable by design.</span>"
+  />
 
   <!-- Section 6: IDENTITY - Adopt. Scale. Prepare. -->
-  <section class="py-24 relative bg-violet/5">
+  <section class="py-24 relative">
     <div class="max-w-[var(--container-max)] mx-auto px-6">
       <SectionHeading
         label="Our Approach"
@@ -188,7 +197,7 @@ const capabilitiesCards = [
   </section>
 
   <!-- Section 7: VALUES -->
-  <section class="py-24 relative">
+  <section class="py-24 relative bg-violet/5">
     <div class="max-w-[var(--container-max)] mx-auto px-6">
       <SectionHeading
         label="What We Stand For"
@@ -197,7 +206,7 @@ const capabilitiesCards = [
 
       <div class="mt-16 max-w-4xl mx-auto space-y-6">
         {[
-          { title: "We build, we don't advise.", desc: "Strategy without implementation is a PowerPoint. We ship systems that work." },
+          { title: "Build, don't advise.", desc: "Strategy without implementation is a PowerPoint. We ship systems that work." },
           { title: "Open by default.", desc: "Your code, your data, your infrastructure. No vendor lock-in. No hidden dependencies." },
           { title: "Earn trust, not dependence.", desc: "Our job is done when you don't need us anymore." },
           { title: "Stay a student.", desc: "The AI landscape changes weekly. We stay curious and share what we learn." },
@@ -217,13 +226,20 @@ const capabilitiesCards = [
     </div>
   </section>
 
-  <!-- Section 8: FOUNDER'S NOTE -->
+  <!-- Section 8: COMMON QUESTIONS (FAQ) -->
+  <FAQAccordion 
+    faqs={faqData}
+    label="Common Questions"
+    headline="The Clarity You <span class='text-gradient'>Need.</span>"
+  />
+
+  <!-- Section 9: FOUNDER'S NOTE -->
   <section class="py-24 relative">
     <div class="absolute inset-0 bg-gradient-to-b from-transparent via-violet/5 to-transparent"></div>
     <div class="relative z-10 max-w-4xl mx-auto px-6">
       <SectionHeading
         label="A Note from the Founder"
-        title="&quot;I started HextonHQ because I kept seeing the <span class='text-gradient'>same pattern.</span>&quot;"
+        title="&quot;I built HextonHQ for the <span class='text-gradient'>builder in between.</span>&quot;"
       />
 
       <GlassCard class="p-8 sm:p-12 mt-16 relative overflow-hidden" hover={false}>
@@ -250,7 +266,7 @@ const capabilitiesCards = [
     </div>
   </section>
 
-  <!-- Section 9: CLOSING CTA -->
+  <!-- Section 10: CLOSING CTA -->
   <CTASection
     title="The divide is real. <span class='text-gradient'>Which side are you building on?</span>"
     subtitle="Whether you're an organization adopting AI or an individual preparing for what's next — the conversation starts here."

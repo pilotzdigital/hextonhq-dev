@@ -1,4 +1,8 @@
 ---
+/**
+ * Section 8: COMMON QUESTIONS - FAQ Accordion
+ * AEO-optimized with strict JSON-LD schema injection
+ */
 import SectionHeading from './SectionHeading.astro';
 
 interface FAQ {
@@ -8,11 +12,17 @@ interface FAQ {
 
 interface Props {
   faqs: FAQ[];
+  headline?: string;
+  label?: string;
 }
 
-const { faqs } = Astro.props;
+const { 
+  faqs,
+  headline = "The Clarity You <span class='text-gradient'>Need.</span>",
+  label = "Common Questions"
+} = Astro.props;
 
-// Generate the JSON-LD schema for Google and Answer Engines
+// Generate the JSON-LD schema for Google and Answer Engines (AEO)
 const schema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -27,45 +37,172 @@ const schema = {
 };
 ---
 
-<section class="py-16 max-w-3xl mx-auto">
-  <SectionHeading 
-    title="Common Questions" 
-    align="center"
-  />
+<section class="faq-section py-24 relative overflow-hidden" id="faq" data-testid="faq-section">
+  <!-- Background effects -->
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute w-[500px] h-[500px] rounded-full bg-gradient-to-br from-violet/10 to-transparent blur-[120px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+  </div>
 
-  <div class="mt-8 space-y-4" itemscope itemtype="https://schema.org/FAQPage">
-    {faqs.map((faq, index) => (
-      <details class="glass rounded-2xl group cursor-pointer" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-        <summary class="p-6 font-bold text-slate-200 flex justify-between items-center outline-none" itemprop="name">
-          {faq.question}
-          <span class="transition-transform duration-300 group-open:rotate-180 text-violet-400">
-            <svg w="20" h="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-          </span>
-        </summary>
-        <div class="px-6 pb-6 text-slate-400 leading-relaxed" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-          <div itemprop="text">{faq.answer}</div>
+  <div class="max-w-4xl mx-auto px-6 relative z-10">
+    <SectionHeading 
+      label={label}
+      title={headline}
+      align="center"
+    />
+
+    <!-- FAQ Accordion -->
+    <div class="faq-list mt-16 space-y-4" itemscope itemtype="https://schema.org/FAQPage" data-testid="faq-list">
+      {faqs.map((faq, index) => (
+        <div 
+          class="faq-item"
+          data-testid={`faq-item-${index}`}
+          style={`animation-delay: ${index * 100}ms`}
+        >
+          <details 
+            class="faq-details glass rounded-2xl group overflow-hidden border border-white/5 hover:border-violet/30 transition-all duration-300"
+            itemscope 
+            itemprop="mainEntity" 
+            itemtype="https://schema.org/Question"
+          >
+            <summary class="faq-summary p-6 cursor-pointer flex items-center justify-between gap-4 outline-none select-none">
+              <span class="text-lg font-bold font-heading text-white group-hover:text-violet transition-colors" itemprop="name">
+                {faq.question}
+              </span>
+              <div class="faq-icon w-10 h-10 rounded-full bg-white/5 flex items-center justify-center shrink-0 group-hover:bg-violet/20 transition-all duration-300 border border-white/10 group-hover:border-violet/30">
+                <svg 
+                  class="w-5 h-5 text-text-secondary group-hover:text-violet transition-all duration-300 transform group-open:rotate-180" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  stroke-width="2"
+                >
+                  <path d="M19 9l-7 7-7-7"/>
+                </svg>
+              </div>
+            </summary>
+            
+            <div 
+              class="faq-answer px-6 pb-6" 
+              itemscope 
+              itemprop="acceptedAnswer" 
+              itemtype="https://schema.org/Answer"
+            >
+              <div class="pt-2 border-t border-white/5">
+                <p class="text-text-secondary leading-relaxed text-lg pt-4" itemprop="text">
+                  {faq.answer}
+                </p>
+              </div>
+            </div>
+          </details>
         </div>
-      </details>
-    ))}
+      ))}
+    </div>
+
+    <!-- CTA after FAQ -->
+    <div class="mt-16 text-center">
+      <p class="text-text-secondary mb-6">Still have questions?</p>
+      <a 
+        href="/contact" 
+        class="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-violet to-rose text-white font-bold transition-all duration-300 hover:shadow-lg hover:shadow-violet/25 hover:scale-105"
+        data-testid="faq-cta"
+      >
+        Let's Talk
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+    </div>
   </div>
 </section>
 
-<!-- Inject strict AEO JSON-LD Schema into the head -->
+<!-- Inject strict AEO JSON-LD Schema into the DOM -->
 <script type="application/ld+json" set:html={JSON.stringify(schema)} />
 
 <style>
-  details > summary {
-    list-style: none; /* Hide default arrow */
+  .faq-item {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: revealFaq 0.5s ease-out forwards;
   }
-  details > summary::-webkit-details-marker {
+
+  @keyframes revealFaq {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Remove default details marker */
+  .faq-summary {
+    list-style: none;
+  }
+  
+  .faq-summary::-webkit-details-marker {
     display: none;
   }
-  /* Optional smooth reveal animation */
-  details[open] div {
+
+  /* Answer reveal animation */
+  .faq-details[open] .faq-answer {
     animation: slideDown 0.3s ease-out;
   }
+
   @keyframes slideDown {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
+
+  /* Glow effect when open */
+  .faq-details[open] {
+    box-shadow: 
+      0 0 30px rgba(168, 85, 247, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  /* Icon rotation is handled by Tailwind group-open:rotate-180 */
 </style>
+
+<script>
+  function initFAQ() {
+    const items = document.querySelectorAll('.faq-item');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = 'running';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    items.forEach(item => {
+      (item as HTMLElement).style.animationPlayState = 'paused';
+      observer.observe(item);
+    });
+
+    // Optional: Close other FAQs when one opens (accordion behavior)
+    const details = document.querySelectorAll('.faq-details');
+    details.forEach(detail => {
+      detail.addEventListener('toggle', (e) => {
+        if ((e.target as HTMLDetailsElement).open) {
+          details.forEach(other => {
+            if (other !== e.target && (other as HTMLDetailsElement).open) {
+              (other as HTMLDetailsElement).open = false;
+            }
+          });
+        }
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', initFAQ);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initFAQ);
+  } else {
+    initFAQ();
+  }
+</script>
