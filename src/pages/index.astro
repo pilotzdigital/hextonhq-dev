@@ -6,46 +6,12 @@ import ServiceCard from '../components/ui/ServiceCard.astro';
 import GlassCard from '../components/ui/GlassCard.astro';
 import CTASection from '../components/ui/CTASection.astro';
 import CapabilitiesCarousel from '../components/ui/CapabilitiesCarousel.astro';
-import InteractiveShowcase from '../components/ui/InteractiveShowcase.astro';
+import ArchitectureIndex from '../components/ui/ArchitectureIndex.astro';
 import TechStackMatrix from '../components/ui/TechStackMatrix.astro';
 import FAQAccordion from '../components/ui/FAQAccordion.astro';
 import BrandStory from '../components/ui/BrandStory.astro';
 import ValuesSection from '../components/ui/ValuesSection.astro';
 import FounderNote from '../components/ui/FounderNote.astro';
-
-// Section 2: Interactive Showcase - 6 Case Study Cards
-const showcaseCards = [
-  {
-    metric: "4 Hours → 2 Seconds",
-    title: "The Automation Engine",
-    description: "Deployed a self-hosted n8n pipeline that intercepts inbound leads, uses Perplexity API to research their company, scores the lead, and drafts a personalized outreach email—instantly."
-  },
-  {
-    metric: "$24,000/yr → $600/yr",
-    title: "The Open-Source Migration",
-    description: "Migrated a growing sales team off expensive, bloated enterprise software onto a fully proprietary, self-hosted CRM. 100% data sovereignty. Zero monthly seat licenses."
-  },
-  {
-    metric: "#1 Cited Source in AI",
-    title: "The GEO Dominance",
-    description: "Rewired a client's digital content structure so that when their target audience asks Perplexity or Google's AI Overviews a question, our client is cited as the primary authority."
-  },
-  {
-    metric: "3 Days → Instant",
-    title: "The Operations Bot",
-    description: "Replaced a tangled web of HR and Finance emails with a custom, secure AI agent embedded in Slack. It handles contract generation, data routing, and approvals autonomously."
-  },
-  {
-    metric: "+140% Pipeline Velocity",
-    title: "The Growth Hack",
-    description: "Stepped in as Fractional CMO to tear down static landing pages, replacing them with dynamic, AI-personalized funnels that adapt their copy to the visitor's specific industry."
-  },
-  {
-    metric: "100% Adoption Rate",
-    title: "The Team Transformation",
-    description: "Took a traditional, 15-person marketing department and ran an intensive technical sprint, turning them into AI-native builders who now write their own automation scripts."
-  }
-];
 
 // Section 4: Capabilities cards data
 const capabilitiesCards = [
@@ -121,12 +87,10 @@ const faqData = [
     secondaryCTA={{ label: 'See Our Beliefs', href: '#brand-story' }}
   />
 
-  <!-- Section 2: THE INTERACTIVE SHOWCASE (Social Proof) - 6 Cards -->
-  <InteractiveShowcase 
-    cards={showcaseCards}
+  <!-- Section 2: THE ARCHITECTURE INDEX & INTERACTIVE TERMINAL -->
+  <ArchitectureIndex 
     label="Our Output"
     headline="Not theory. <span class='text-gradient'>Architecture.</span>"
-    subheadline="A look inside the systems we build and the bottlenecks we break."
   />
 
   <!-- Section 3: THE BRAND STORY — "This Has Happened Before" with Light Switch Effect -->

@@ -1,0 +1,682 @@
+---
+/**
+ * Section 2: THE ARCHITECTURE INDEX & INTERACTIVE TERMINAL
+ * 30/70 Split - Command Center Design
+ * Auto-cycling case studies + AI-powered lead generation terminal
+ */
+import SectionHeading from './SectionHeading.astro';
+
+interface CaseStudy {
+  metric: string;
+  tag: string;
+  title: string;
+  stack: string[];
+  friction: string;
+  architecture: string;
+  output: string;
+}
+
+interface Props {
+  label?: string;
+  headline?: string;
+}
+
+const { 
+  label = "Our Output", 
+  headline = "Not theory. <span class='text-gradient'>Architecture.</span>"
+} = Astro.props;
+
+// The 6 Case Studies
+const caseStudies: CaseStudy[] = [
+  {
+    metric: "4 Hours → 2 Seconds",
+    tag: "Lead Enrichment",
+    title: "AUTONOMOUS LEAD ENRICHMENT PIPELINE",
+    stack: ["n8n", "Perplexity API", "Anthropic Claude", "Postgres"],
+    friction: "Sales representatives were spending up to four hours daily manually researching prospects on LinkedIn, reading company news, and drafting introductory emails. This led to massive pipeline bottlenecks and inconsistent outreach quality.",
+    architecture: "We deployed a self-hosted n8n workflow that listens for new CRM entries. It instantly pings the Perplexity API for real-time company news and financial context, scores the lead's viability, and feeds that data into Claude 3.5 Sonnet to draft a hyper-personalized email directly into the sales rep's Slack queue.",
+    output: "Manual research time dropped from hours to instant. Reps now spend 100% of their time closing rather than researching, driving a 42% increase in outbound meetings booked within the first month."
+  },
+  {
+    metric: "$24k/yr → $600/yr",
+    tag: "Open-Source CRM",
+    title: "ZERO-LOCK-IN SALES INFRASTRUCTURE",
+    stack: ["Supabase", "Next.js", "Payload CMS", "Dokploy"],
+    friction: "A growing agency was locked into a bloated enterprise CRM, paying astronomical per-seat monthly licenses for features they didn't even use. Their data was siloed, and they were forced to adapt their business to the software's rigid workflows.",
+    architecture: "We architected a fully proprietary, open-source CRM using Supabase (PostgreSQL) and a custom Next.js frontend. We migrated their historical data, built custom role-based access for their exact sales workflow, and deployed the entire stack securely on their own self-hosted Dokploy instance.",
+    output: "100% data sovereignty and absolute control over their infrastructure. Software overhead was slashed from $24,000 a year in seat licenses to just $600 a year in pure server costs."
+  },
+  {
+    metric: "#1 Cited Source",
+    tag: "Generative Search",
+    title: "AI SEARCH AUTHORITY ARCHITECTURE",
+    stack: ["Astro", "JSON-LD Schema", "Markdown"],
+    friction: "A B2B consultancy saw their organic traffic plummet as Google shifted to AI Overviews and their buyers moved to Perplexity. Their traditional SEO strategy—heavily reliant on keywords and blog spam—was completely blind to generative engines.",
+    architecture: "We rebuilt their content architecture using Astro, stripping out heavy JavaScript bloat and injecting rigorous, strictly formatted JSON-LD schema markup. We restructured their core service pages into high-density, fact-based semantic clusters that Large Language Models naturally prioritize for citations.",
+    output: "The brand is now consistently cited as the #1 primary source in Perplexity and Google AI Overviews for their top 5 industry queries, capturing high-intent traffic that their competitors are entirely missing."
+  },
+  {
+    metric: "3 Days → Instant",
+    tag: "Operations AI",
+    title: "ASYNCHRONOUS APPROVAL AGENT",
+    stack: ["Make.com", "Slack API", "OpenAI"],
+    friction: "Internal approvals for vendor contracts and expense reports required a tangled web of emails, PDFs, and manual sign-offs from three different department heads. Crucial documents constantly slipped through the cracks.",
+    architecture: "We installed a custom, secure AI agent embedded directly into their company Slack workspace via Make.com. Employees upload documents directly to the bot; the AI extracts the key terms, routes it to the correct department head with a simple \"Approve/Deny\" button, and logs the finalized PDF into their secure cloud storage.",
+    output: "Cross-departmental friction was entirely eliminated. Document approvals that used to sit in executive inboxes for 3 to 4 days are now routed, signed, and securely filed in under two minutes."
+  },
+  {
+    metric: "100% Adoption",
+    tag: "Team Enablement",
+    title: "THE AI-NATIVE MARKETING SPRINT",
+    stack: ["ChatGPT Enterprise", "Midjourney", "Custom GPTs"],
+    friction: "A 15-person marketing department had access to premium AI subscriptions but was paralyzed by prompt-anxiety, using the tools only as glorified spell-checkers. Execution remained slow, and the output was highly generic.",
+    architecture: "We ran an intensive, hands-on technical enablement sprint. Instead of presenting a theoretical slide deck, we audited their daily tasks and built 8 custom, proprietary GPTs alongside the team, training them exactly how to structure context windows and chain prompts for their specific campaigns.",
+    output: "We transformed hesitant users into confident AI-builders. Campaign ideation-to-launch velocity increased by 300%, and the team now independently builds and maintains their own AI workflows without outside help."
+  },
+  {
+    metric: "Absolute Clarity",
+    tag: "Data Infrastructure",
+    title: "SELF-HOSTED REVENUE ATTRIBUTION",
+    stack: ["Matomo", "Postgres", "Metabase"],
+    friction: "A startup was flying blind, relying on heavily sampled Google Analytics 4 data and third-party dashboards that couldn't accurately connect their marketing ad spend to their actual recurring revenue.",
+    architecture: "We bypassed third-party cookie restrictions and vendor lock-in by deploying Matomo and Metabase on their own servers. We wired their Stripe billing data directly into a unified PostgreSQL database, creating a single, unsampled source of truth for user behavior and revenue.",
+    output: "The executive team gained a pixel-perfect, real-time dashboard showing exactly which marketing channels drove the highest-LTV users, ensuring total data privacy and absolute clarity on their ROI."
+  }
+];
+---
+
+<section class="architecture-index-section py-24 relative overflow-hidden" id="showcase" data-testid="architecture-index">
+  <!-- Background effects -->
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute inset-0 grain opacity-30"></div>
+    <div class="absolute w-[600px] h-[600px] rounded-full bg-gradient-to-br from-violet/15 to-transparent blur-[120px] -top-32 -left-32"></div>
+    <div class="absolute w-[500px] h-[500px] rounded-full bg-gradient-to-tl from-rose/10 to-transparent blur-[100px] -bottom-32 -right-32"></div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-6 relative z-10">
+    <!-- Section Header -->
+    <div class="text-center mb-12">
+      <span class="text-sm font-medium uppercase tracking-wider text-violet">{label}</span>
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold font-heading mt-3" set:html={headline} />
+      <p class="text-text-secondary text-lg mt-4 max-w-2xl mx-auto">
+        A look inside the systems we build and the bottlenecks we break.
+      </p>
+    </div>
+
+    <!-- Main Container: 30/70 Split -->
+    <div class="architecture-container flex flex-col lg:flex-row gap-0 lg:gap-0 min-h-[700px] rounded-3xl overflow-hidden border border-white/5" data-testid="architecture-container">
+      
+      <!-- LEFT PANEL: System Directory (30%) -->
+      <div class="system-directory lg:w-[30%] bg-surface/80 border-r border-white/5 flex flex-col" data-testid="system-directory">
+        <!-- Future Search Bar Space -->
+        <div class="search-space p-4 border-b border-white/5">
+          <div class="flex items-center gap-2 px-4 py-3 bg-white/5 rounded-xl text-text-secondary/50 text-sm">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+            <span>Search systems...</span>
+          </div>
+        </div>
+
+        <!-- Mobile: Horizontal Swipeable Tabs -->
+        <div class="lg:hidden sticky top-0 z-20 bg-surface/95 backdrop-blur-xl">
+          <div class="mobile-tabs flex overflow-x-auto gap-2 p-4 scrollbar-hide" data-testid="mobile-tabs">
+            {caseStudies.map((study, index) => (
+              <button 
+                class="mobile-tab shrink-0 px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-left transition-all duration-300"
+                data-index={index}
+                data-testid={`mobile-tab-${index}`}
+              >
+                <div class="text-lg font-bold text-violet whitespace-nowrap">{study.metric}</div>
+                <div class="text-xs text-text-secondary whitespace-nowrap">{study.tag}</div>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <!-- Desktop: Vertical Tab Stack -->
+        <div class="hidden lg:block flex-1 overflow-y-auto">
+          <div class="directory-tabs flex flex-col" data-testid="directory-tabs">
+            {caseStudies.map((study, index) => (
+              <button 
+                class="directory-tab relative p-5 text-left border-b border-white/5 transition-all duration-300 hover:bg-white/5 group"
+                data-index={index}
+                data-testid={`directory-tab-${index}`}
+              >
+                <div class="metric text-2xl font-bold bg-gradient-to-r from-violet to-rose bg-clip-text text-transparent mb-1 group-hover:from-white group-hover:to-white transition-all">
+                  {study.metric}
+                </div>
+                <div class="tag text-sm text-text-secondary uppercase tracking-wider font-medium">
+                  {study.tag}
+                </div>
+                
+                <!-- Progress bar for active tab -->
+                <div class="progress-bar absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-violet to-rose w-0 transition-all"></div>
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT PANEL: Blueprint Canvas (70%) -->
+      <div class="blueprint-canvas lg:w-[70%] bg-surface-elevated/50 backdrop-blur-xl flex flex-col relative overflow-hidden" data-testid="blueprint-canvas">
+        
+        <!-- Abstract System Graphics (Top) -->
+        <div class="canvas-graphics h-32 relative overflow-hidden border-b border-white/5">
+          <div class="dot-grid absolute inset-0 opacity-30"></div>
+          <div class="absolute inset-0 bg-gradient-to-b from-transparent to-surface-elevated/90"></div>
+          
+          <!-- Animated grid lines -->
+          <svg class="absolute inset-0 w-full h-full opacity-20" viewBox="0 0 400 128" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="gridGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:var(--color-violet);stop-opacity:0" />
+                <stop offset="50%" style="stop-color:var(--color-violet);stop-opacity:1" />
+                <stop offset="100%" style="stop-color:var(--color-rose);stop-opacity:0" />
+              </linearGradient>
+            </defs>
+            <line x1="0" y1="32" x2="400" y2="32" stroke="url(#gridGrad)" stroke-width="1" class="animate-pulse"/>
+            <line x1="0" y1="64" x2="400" y2="64" stroke="url(#gridGrad)" stroke-width="1" class="animate-pulse" style="animation-delay: 0.5s"/>
+            <line x1="0" y1="96" x2="400" y2="96" stroke="url(#gridGrad)" stroke-width="1" class="animate-pulse" style="animation-delay: 1s"/>
+          </svg>
+          
+          <!-- Glowing orbs -->
+          <div class="absolute top-4 right-8 w-3 h-3 rounded-full bg-violet shadow-[0_0_20px_rgba(168,85,247,0.8)] animate-pulse"></div>
+          <div class="absolute top-12 right-24 w-2 h-2 rounded-full bg-rose shadow-[0_0_15px_rgba(251,113,133,0.8)] animate-pulse" style="animation-delay: 0.3s"></div>
+        </div>
+
+        <!-- Case Study Content Area -->
+        <div class="canvas-content flex-1 overflow-y-auto p-6 lg:p-8" data-testid="canvas-content">
+          {caseStudies.map((study, index) => (
+            <div 
+              class="case-study-content hidden opacity-0 transition-all duration-500"
+              data-index={index}
+              data-testid={`case-study-${index}`}
+            >
+              <!-- Title -->
+              <h3 class="text-xl lg:text-2xl font-bold font-heading text-white mb-4 tracking-wide">
+                {study.title}
+              </h3>
+              
+              <!-- Tech Stack Badges -->
+              <div class="stack-badges flex flex-wrap gap-2 mb-6">
+                {study.stack.map((tech) => (
+                  <span class="px-3 py-1.5 rounded-full bg-violet/10 border border-violet/30 text-violet text-xs font-mono font-medium">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+              
+              <!-- Friction -->
+              <div class="content-block mb-6">
+                <h4 class="text-sm font-bold uppercase tracking-wider text-rose mb-2 flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-rose"></span>
+                  The Friction
+                </h4>
+                <p class="text-text-secondary leading-relaxed">{study.friction}</p>
+              </div>
+              
+              <!-- Architecture -->
+              <div class="content-block mb-6">
+                <h4 class="text-sm font-bold uppercase tracking-wider text-violet mb-2 flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-violet"></span>
+                  The Architecture
+                </h4>
+                <p class="text-text-secondary leading-relaxed">{study.architecture}</p>
+              </div>
+              
+              <!-- Output -->
+              <div class="content-block">
+                <h4 class="text-sm font-bold uppercase tracking-wider text-gold mb-2 flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-gold"></span>
+                  The Output
+                </h4>
+                <p class="text-white font-medium leading-relaxed">{study.output}</p>
+              </div>
+            </div>
+          ))}
+
+          <!-- AI Response Area (hidden by default) -->
+          <div class="ai-response-area hidden" data-testid="ai-response-area">
+            <div class="ai-loading hidden flex items-center gap-3 text-text-secondary mb-8">
+              <div class="flex gap-1">
+                <span class="w-2 h-2 rounded-full bg-violet animate-bounce" style="animation-delay: 0s"></span>
+                <span class="w-2 h-2 rounded-full bg-violet animate-bounce" style="animation-delay: 0.1s"></span>
+                <span class="w-2 h-2 rounded-full bg-violet animate-bounce" style="animation-delay: 0.2s"></span>
+              </div>
+              <span class="font-mono text-sm">Analyzing your bottleneck...</span>
+            </div>
+            
+            <div class="ai-response-content hidden">
+              <div class="response-text font-mono text-sm text-text-secondary leading-relaxed whitespace-pre-wrap"></div>
+              
+              <!-- CTA after response -->
+              <div class="response-cta hidden mt-8 flex items-center gap-4">
+                <a 
+                  href="/contact" 
+                  class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-violet to-rose text-white font-bold transition-all duration-300 hover:shadow-lg hover:shadow-violet/25 hover:scale-105"
+                  data-testid="book-call-cta"
+                >
+                  Book Architecture Scoping Call
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                  </svg>
+                </a>
+                <button class="reset-terminal text-text-secondary hover:text-violet text-sm underline transition-colors">
+                  Reset
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Architect Terminal -->
+        <div class="architect-terminal border-t border-white/5 p-4 lg:p-6 bg-bg/50" data-testid="architect-terminal">
+          <div class="terminal-header flex items-center gap-2 mb-3">
+            <div class="flex gap-1.5">
+              <span class="w-3 h-3 rounded-full bg-rose/50"></span>
+              <span class="w-3 h-3 rounded-full bg-gold/50"></span>
+              <span class="w-3 h-3 rounded-full bg-success/50"></span>
+            </div>
+            <span class="text-xs font-mono text-text-secondary">interactive_architect.sh</span>
+          </div>
+          
+          <form class="terminal-form flex gap-3" data-testid="terminal-form">
+            <div class="flex-1 relative">
+              <input 
+                type="text" 
+                class="terminal-input w-full px-4 py-3 bg-surface rounded-xl border border-white/10 text-white placeholder-text-secondary/50 focus:border-violet/50 focus:outline-none focus:ring-1 focus:ring-violet/50 font-mono text-sm transition-all"
+                placeholder="Describe your manual bottleneck..."
+                data-testid="terminal-input"
+              />
+              <div class="absolute right-3 top-1/2 -translate-y-1/2 text-text-secondary/30">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                </svg>
+              </div>
+            </div>
+            <button 
+              type="submit" 
+              class="terminal-submit px-6 py-3 bg-gradient-to-r from-violet to-rose rounded-xl text-white font-bold text-sm transition-all hover:shadow-lg hover:shadow-violet/25 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+              data-testid="terminal-submit"
+            >
+              Architect
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Hide scrollbar for mobile tabs */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Active directory tab */
+  .directory-tab.active {
+    background: rgba(168, 85, 247, 0.1);
+  }
+
+  .directory-tab.active .metric {
+    background: linear-gradient(135deg, #fff, #fff);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  .directory-tab.active .progress-bar {
+    animation: progressFill 6s linear forwards;
+  }
+
+  .directory-tab.paused .progress-bar {
+    animation-play-state: paused;
+  }
+
+  @keyframes progressFill {
+    from { width: 0%; }
+    to { width: 100%; }
+  }
+
+  /* Active mobile tab */
+  .mobile-tab.active {
+    background: rgba(168, 85, 247, 0.2);
+    border-color: var(--color-violet);
+  }
+
+  /* Case study content transition */
+  .case-study-content.active {
+    display: block;
+    opacity: 1;
+  }
+
+  /* Dot grid pattern */
+  .dot-grid {
+    background-image: radial-gradient(circle, rgba(168,85,247,0.3) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  /* Terminal typing effect */
+  .typing-cursor::after {
+    content: '█';
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+</style>
+
+<script>
+class ArchitectureIndex {
+  private container: HTMLElement;
+  private tabs: HTMLElement[];
+  private mobileTabs: HTMLElement[];
+  private contents: HTMLElement[];
+  private currentIndex: number = 0;
+  private autoplayInterval: ReturnType<typeof setInterval> | null = null;
+  private isPaused: boolean = false;
+  private cycleTime: number = 6000; // 6 seconds
+
+  // Terminal elements
+  private form: HTMLFormElement;
+  private input: HTMLInputElement;
+  private submitBtn: HTMLButtonElement;
+  private canvasContent: HTMLElement;
+  private aiResponseArea: HTMLElement;
+  private aiLoading: HTMLElement;
+  private aiResponseContent: HTMLElement;
+  private responseText: HTMLElement;
+  private responseCta: HTMLElement;
+  private resetBtn: HTMLElement | null;
+
+  constructor(section: HTMLElement) {
+    this.container = section;
+    this.tabs = Array.from(section.querySelectorAll('.directory-tab'));
+    this.mobileTabs = Array.from(section.querySelectorAll('.mobile-tab'));
+    this.contents = Array.from(section.querySelectorAll('.case-study-content'));
+    
+    // Terminal elements
+    this.form = section.querySelector('.terminal-form') as HTMLFormElement;
+    this.input = section.querySelector('.terminal-input') as HTMLInputElement;
+    this.submitBtn = section.querySelector('.terminal-submit') as HTMLButtonElement;
+    this.canvasContent = section.querySelector('.canvas-content') as HTMLElement;
+    this.aiResponseArea = section.querySelector('.ai-response-area') as HTMLElement;
+    this.aiLoading = section.querySelector('.ai-loading') as HTMLElement;
+    this.aiResponseContent = section.querySelector('.ai-response-content') as HTMLElement;
+    this.responseText = section.querySelector('.response-text') as HTMLElement;
+    this.responseCta = section.querySelector('.response-cta') as HTMLElement;
+    this.resetBtn = section.querySelector('.reset-terminal');
+
+    this.init();
+  }
+
+  private init() {
+    this.showContent(0);
+    this.bindEvents();
+    this.startAutoplay();
+  }
+
+  private bindEvents() {
+    // Desktop tab clicks
+    this.tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => {
+        this.pauseAutoplay();
+        this.showContent(index);
+      });
+      
+      tab.addEventListener('mouseenter', () => {
+        this.pauseAutoplay();
+      });
+    });
+
+    // Mobile tab clicks
+    this.mobileTabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => {
+        this.pauseAutoplay();
+        this.showContent(index);
+      });
+    });
+
+    // Terminal form submission
+    this.form?.addEventListener('submit', (e) => this.handleSubmit(e));
+
+    // Reset button
+    this.resetBtn?.addEventListener('click', () => this.resetTerminal());
+  }
+
+  private showContent(index: number) {
+    this.currentIndex = index;
+
+    // Update desktop tabs
+    this.tabs.forEach((tab, i) => {
+      tab.classList.toggle('active', i === index);
+      const progressBar = tab.querySelector('.progress-bar') as HTMLElement;
+      if (progressBar) {
+        progressBar.style.width = i === index ? '0%' : '0%';
+        if (i === index && !this.isPaused) {
+          // Restart animation
+          progressBar.style.animation = 'none';
+          progressBar.offsetHeight; // Trigger reflow
+          progressBar.style.animation = `progressFill ${this.cycleTime}ms linear forwards`;
+        }
+      }
+    });
+
+    // Update mobile tabs
+    this.mobileTabs.forEach((tab, i) => {
+      tab.classList.toggle('active', i === index);
+    });
+
+    // Update content
+    this.contents.forEach((content, i) => {
+      content.classList.toggle('active', i === index);
+    });
+
+    // Scroll mobile tab into view
+    if (this.mobileTabs[index]) {
+      this.mobileTabs[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+  }
+
+  private startAutoplay() {
+    if (this.autoplayInterval) return;
+    this.isPaused = false;
+    
+    this.autoplayInterval = setInterval(() => {
+      if (!this.isPaused) {
+        const nextIndex = (this.currentIndex + 1) % this.contents.length;
+        this.showContent(nextIndex);
+      }
+    }, this.cycleTime);
+  }
+
+  private pauseAutoplay() {
+    this.isPaused = true;
+    if (this.autoplayInterval) {
+      clearInterval(this.autoplayInterval);
+      this.autoplayInterval = null;
+    }
+    
+    // Mark current tab as paused
+    this.tabs.forEach(tab => tab.classList.add('paused'));
+  }
+
+  private async handleSubmit(e: Event) {
+    e.preventDefault();
+    
+    const query = this.input.value.trim();
+    if (!query) return;
+
+    // Disable input
+    this.input.disabled = true;
+    this.submitBtn.disabled = true;
+    this.pauseAutoplay();
+
+    // Hide case study content, show AI response area
+    this.contents.forEach(c => c.classList.remove('active'));
+    this.aiResponseArea.classList.remove('hidden');
+    this.aiLoading.classList.remove('hidden');
+    this.aiResponseContent.classList.add('hidden');
+
+    try {
+      // Send to backend (which will forward to n8n webhook)
+      const response = await this.sendToWebhook(query);
+      
+      // Hide loading, show response
+      this.aiLoading.classList.add('hidden');
+      this.aiResponseContent.classList.remove('hidden');
+      
+      // Type out the response
+      await this.typeResponse(response);
+      
+      // Show CTA
+      this.responseCta.classList.remove('hidden');
+      
+    } catch (error) {
+      // Show fallback message
+      this.aiLoading.classList.add('hidden');
+      this.aiResponseContent.classList.remove('hidden');
+      await this.typeResponse(this.getFallbackResponse());
+      this.responseCta.classList.remove('hidden');
+    }
+  }
+
+  private async sendToWebhook(query: string): Promise<string> {
+    // Collect metadata
+    const metadata = {
+      query,
+      timestamp: new Date().toISOString(),
+      userAgent: navigator.userAgent,
+      deviceType: this.getDeviceType(),
+      referrer: document.referrer,
+      pageUrl: window.location.href
+    };
+
+    // Try to send to backend endpoint
+    try {
+      const backendUrl = import.meta.env.PUBLIC_BACKEND_URL || '';
+      const response = await fetch(`${backendUrl}/api/architect`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(metadata)
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        return data.response || this.generateLocalResponse(query);
+      }
+    } catch (e) {
+      // Fallback to local generation
+    }
+
+    return this.generateLocalResponse(query);
+  }
+
+  private generateLocalResponse(query: string): string {
+    // Local fallback response generator
+    const tools = ['n8n', 'Make.com', 'Supabase', 'OpenAI', 'Claude', 'Postgres', 'Next.js', 'Astro'];
+    const selectedTools = tools.sort(() => Math.random() - 0.5).slice(0, 3);
+
+    return `═══════════════════════════════════════
+SYSTEM ANALYSIS
+═══════════════════════════════════════
+
+Bottleneck Identified: "${query}"
+
+This appears to be a workflow friction point involving manual data handling and repetitive task execution. Based on our diagnostic patterns, this maps to approximately 15-20 hours of recoverable productivity per week.
+
+═══════════════════════════════════════
+PROPOSED ARCHITECTURE
+═══════════════════════════════════════
+
+Recommended Stack:
+• ${selectedTools[0]} — Core automation orchestration
+• ${selectedTools[1]} — Data transformation layer
+• ${selectedTools[2]} — Persistent storage & retrieval
+
+Implementation Approach:
+We would deploy an event-driven workflow that monitors your existing triggers, processes incoming data through an intelligent routing layer, and executes the appropriate actions autonomously.
+
+═══════════════════════════════════════
+PROJECTED OUTPUT
+═══════════════════════════════════════
+
+• Time Savings: 80-90% reduction in manual handling
+• Error Rate: Near-zero with automated validation
+• Scalability: Unlimited throughput without headcount
+• Ownership: 100% self-hosted, zero vendor lock-in
+
+Ready to scope the full architecture?`;
+  }
+
+  private getFallbackResponse(): string {
+    return `═══════════════════════════════════════
+SYSTEM NOTICE
+═══════════════════════════════════════
+
+Thank you for your interest. Our architectural analysis system is currently at capacity.
+
+For immediate assistance with your specific bottleneck, please book a direct consultation with our team. We'll provide a detailed assessment within 24 hours.
+
+═══════════════════════════════════════`;
+  }
+
+  private async typeResponse(text: string) {
+    this.responseText.textContent = '';
+    this.responseText.classList.add('typing-cursor');
+    
+    for (let i = 0; i < text.length; i++) {
+      this.responseText.textContent += text[i];
+      await new Promise(resolve => setTimeout(resolve, 8));
+    }
+    
+    this.responseText.classList.remove('typing-cursor');
+  }
+
+  private getDeviceType(): string {
+    const ua = navigator.userAgent;
+    if (/tablet|ipad|playbook|silk/i.test(ua)) return 'tablet';
+    if (/mobile|iphone|ipod|android|blackberry|opera mini|iemobile/i.test(ua)) return 'mobile';
+    return 'desktop';
+  }
+
+  private resetTerminal() {
+    // Reset form
+    this.input.value = '';
+    this.input.disabled = false;
+    this.submitBtn.disabled = false;
+
+    // Hide AI response
+    this.aiResponseArea.classList.add('hidden');
+    this.aiLoading.classList.add('hidden');
+    this.aiResponseContent.classList.add('hidden');
+    this.responseCta.classList.add('hidden');
+    this.responseText.textContent = '';
+
+    // Show case study content
+    this.showContent(this.currentIndex);
+  }
+}
+
+// Initialize
+function initArchitectureIndex() {
+  const sections = document.querySelectorAll('.architecture-index-section');
+  sections.forEach((section) => {
+    new ArchitectureIndex(section as HTMLElement);
+  });
+}
+
+document.addEventListener('astro:page-load', initArchitectureIndex);
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initArchitectureIndex);
+} else {
+  initArchitectureIndex();
+}
+</script>
