@@ -536,8 +536,10 @@ class ArchitectureIndex {
       // Type out the response
       await this.typeResponse(response);
       
-      // Show CTA
+      // Show CTA after a small delay
+      await new Promise(resolve => setTimeout(resolve, 300));
       this.responseCta.classList.remove('hidden');
+      this.canvasContent.scrollTop = this.canvasContent.scrollHeight;
       
     } catch (error) {
       // Show fallback message
@@ -632,12 +634,21 @@ For immediate assistance with your specific bottleneck, please book a direct con
     this.responseText.textContent = '';
     this.responseText.classList.add('typing-cursor');
     
+    // Fast typing for better UX
+    const typingSpeed = 2;
+    
     for (let i = 0; i < text.length; i++) {
       this.responseText.textContent += text[i];
-      await new Promise(resolve => setTimeout(resolve, 8));
+      // Update scroll position every 100 chars
+      if (i % 100 === 0) {
+        this.canvasContent.scrollTop = this.canvasContent.scrollHeight;
+      }
+      await new Promise(resolve => setTimeout(resolve, typingSpeed));
     }
     
     this.responseText.classList.remove('typing-cursor');
+    // Ensure final scroll to bottom
+    this.canvasContent.scrollTop = this.canvasContent.scrollHeight;
   }
 
   private getDeviceType(): string {

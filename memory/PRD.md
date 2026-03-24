@@ -30,10 +30,23 @@ Complete V3 upgrade of HextonHQ website (Astro 5 + Tailwind CSS v4) based on the
 
 ### January 2026 - Full V3 Upgrade
 
-**Section 2: Interactive Showcase** ✅
-- `InteractiveShowcase.astro` with 6 glassmorphic case study cards
-- Metrics: "4 Hours → 2 Seconds", "$24,000/yr → $600/yr", "#1 Cited Source", etc.
-- Scroll-triggered reveal animations
+**Section 2: Architecture Index & Interactive Terminal** ✅ (MAJOR UPGRADE)
+- `ArchitectureIndex.astro` - Complete 30/70 split "Command Center" layout:
+  - **Left Panel (30%)**: System Directory with 6 case study tabs
+    - Auto-cycles every 6 seconds with progress bar animation
+    - Tabs: "4 Hours → 2 Seconds", "$24k/yr → $600/yr", "#1 Cited Source", "3 Days → Instant", "100% Adoption", "Absolute Clarity"
+    - Click/hover pauses auto-cycle
+  - **Right Panel (70%)**: Blueprint Canvas
+    - Abstract system graphics (dot grids, glowing orbs)
+    - Case study content: Title, Tech Stack badges, Friction/Architecture/Output sections
+    - Internal scrollbar for content
+  - **Interactive Architect Terminal**:
+    - Terminal-style input for describing bottlenecks
+    - AI-powered response generation with typing effect
+    - Three-section response: SYSTEM ANALYSIS, PROPOSED ARCHITECTURE, PROJECTED OUTPUT
+    - "Book Architecture Scoping Call" CTA after response
+    - Reset functionality to return to case studies
+  - **Mobile Responsive**: Horizontal swipeable tabs pinned to top
 
 **Section 3: Brand Story** ✅
 - `BrandStory.astro` with "light switch" effect
@@ -71,16 +84,16 @@ Complete V3 upgrade of HextonHQ website (Astro 5 + Tailwind CSS v4) based on the
 - "Initialize the Build" CTA button
 
 ## Testing Status
-- Frontend Testing: 100% pass rate (24/24 features)
+- Frontend Testing: 87-100% pass rate across iterations
 - All interactive animations working
 - JSON-LD schema verified
-- Glassmorphic styling on 210+ elements
-- Responsive design verified
+- Interactive terminal generating contextual AI responses
+- Auto-cycling tabs with progress bars verified
 
 ## Backlog
 
 ### P0 (Critical)
-- None remaining
+- n8n webhook integration for actual AI responses (currently using local fallback)
 
 ### P1 (High Priority)
 - Contact form functionality
@@ -93,7 +106,8 @@ Complete V3 upgrade of HextonHQ website (Astro 5 + Tailwind CSS v4) based on the
 - Additional FAQ questions
 
 ## Next Tasks
-1. Build out /services page with individual service details
-2. Implement /contact page with form submission
-3. Create /blog listing and post templates
+1. Connect Interactive Architect terminal to actual n8n webhook
+2. Build out /services page with individual service details
+3. Implement /contact page with form submission
+4. Create /blog listing and post templates
 4. Add loading states and skeleton screens
